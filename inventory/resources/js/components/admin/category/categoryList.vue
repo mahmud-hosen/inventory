@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <!-- Content Wrapper. Contains page content -->
@@ -23,22 +24,28 @@
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Category Name</th>
+                        <th style="width: 10px">SN</th>
+                        <th>Name</th>
                         <th>Description</th>
                         <th>Image</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(CategoryList, x) in getCategoryListFromStore" :key="CategoryList.id"  >
-                        <td>{{x+1}}</td>
-                        <td>{{CategoryList.cat_name}}</td>
-                        <td>{{CategoryList.cat_description}}</td>
-                        <td><img v-bind:src="`/images/category/${CategoryList.cat_img}`" class="image"></td>
+                      <tr
+                        v-for="(CategoryList, x) in getCategoryListFromStore"
+                        :key="CategoryList.id"
+                       >
+                        <td>{{ x + 1 }}</td>
+                        <td>{{ CategoryList.category_name }}</td>
+                        <td>{{ CategoryList.category_description }}</td>
+                        <td>
+                          <img
+                            v-bind:src="`/images/category/${CategoryList.category_image}`"
+                            class="image"
+                          />
+                        </td>
                         <!-- <img src="./assets/images/01.jpg" alt=""> -->
-
-
 
                         <td>
                           <div class="">
@@ -73,7 +80,7 @@
 export default {
   name: "List",
 
-   //  Step: 4
+  //  Step: 4
   mounted() {
     this.$store.dispatch("CategoryListSaveInStore");
   },
@@ -81,46 +88,35 @@ export default {
   //  Step: 10
   computed: {
     getCategoryListFromStore() {
-      
       return this.$store.getters.categoryListFromStore;
     },
   },
 
   methods: {
     categoryDelete(id) {
-
       Swal.fire({
-  title: 'Are you sure?',
-  text: "You want to delete this category!",
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Yes, delete it!'
-}).then((result) => {
-  if (result.isConfirmed) {
-   axios.get("/categoryDelete/" + id).then((response) => {
-        this.$store.dispatch("CategoryListSaveInStore");
-        Swal.fire(
-          'Deleted!',
-          'Category deleted successfully',
-          'success'
-        );
-     
-
+        title: "Are you sure?",
+        text: "You want to delete this category!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios.get("/categoryDelete/" + id).then((response) => {
+            this.$store.dispatch("CategoryListSaveInStore");
+            Swal.fire("Deleted!", "Category deleted successfully", "success");
+          });
+        }
       });
-  }
-})
-
-
-      
     },
   },
 };
 </script>
 
 <style>
-.image{
+.image {
   height: 70px;
   width: 100px;
 }

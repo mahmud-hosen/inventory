@@ -49,6 +49,7 @@ Route::get('/SubCategoryDelete/{id}', 'SubCategoryController@destroy')->name('Su
 //............................Product Route ........................
 
 Route::get('/getSubcategoryByCategoryId/{id}', 'ProductController@getSubcategoryByCategoryId')->name('product.getSubcategoryByCategoryId');
+Route::get('/getProductBySubCategoryId/{id}', 'ProductController@getProductBySubCategoryId')->name('product.getProductBySubCategoryId');
 
 //Route for category
 Route::post('/productStore', 'ProductController@store')->name('product.store');
@@ -64,5 +65,10 @@ Route::post('/productUpdate/{id}', 'ProductController@update')->name('product.up
 
 //Route categoryUpdate
 Route::get('/productDelete/{id}', 'ProductController@destroy')->name('product.delete');
+
+//............................Cart Route ........................
+Route::get('/productAddToCart/{id}', 'CartController@productAddToCart')->name('cart.productAddToCart');
+Route::get('/clearCart', 'CartController@clearCart')->name('cart.clearCart');
+
 
 

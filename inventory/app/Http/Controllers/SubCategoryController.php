@@ -20,11 +20,22 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-        $AllSubCategoryList = DB::table('categories')
-           ->join('sub_categories','categories.id','=','sub_categories.cat_id')
-           ->select('categories.*','sub_categories.*',)
-           ->get();
+        // $AllSubCategoryList = DB::table('categories')
+        //    ->join('sub_categories','categories.id','=','sub_categories.category_id')
+        //    ->select('categories.*','sub_categories.*',)
+        //    ->get();
+        // return response()->json(['SubCategoryList'=>$AllSubCategoryList],200);
+
+        ///--------------
+        //$subCategoryList = SubCategory::all();
+        //return response()->json(['subCategoryList'=>$subCategoryList],200);
+        //Data fatch use to ralation so ->get()
+        $AllSubCategoryList = SubCategory::with('categories')->get(); 
+
+       // dd($subCategoryList);
         return response()->json(['SubCategoryList'=>$AllSubCategoryList],200);
+
+
     }
 
     /**
@@ -48,17 +59,17 @@ class SubCategoryController extends Controller
         $this->formValidation($request);
 
         $subCategory = new SubCategory();
-        $subCategory->cat_id = $request->cat_id;
-        $subCategory->sub_cat_name = $request->sub_cat_name;
-        $subCategory->sub_cat_description = $request->sub_cat_description;
+        $subCategory->category_id = $request->category_id;
+        $subCategory->sub_category_name = $request->sub_category_name;
+        $subCategory->sub_category_description = $request->sub_category_description;
 
-           if ($request->sub_cat_img) {
+           if ($request->sub_category_img) {
    
             $uploadPath = public_path('images/subCategory/');
-            $img = $request->file('sub_cat_img');
+            $img = $request->file('sub_category_img');
             $newFileName = time() . '.'. $img->getClientOriginalExtension();
-            $subCategory->sub_cat_img = $newFileName;
-            $request->sub_cat_img->move($uploadPath,$newFileName);
+            $subCategory->sub_category_img = $newFileName;
+            $request->sub_category_img->move($uploadPath,$newFileName);
 
         }
        
@@ -104,18 +115,18 @@ class SubCategoryController extends Controller
 
         $subCategory = SubCategory::find($id);
 
-        $subCategory->cat_id = $request->cat_id;
-        $subCategory->sub_cat_name = $request->sub_cat_name;
-        $subCategory->sub_cat_description = $request->sub_cat_description;
+        $subCategory->category_id = $request->category_id;
+        $subCategory->sub_category_name = $request->sub_category_name;
+        $subCategory->sub_category_description = $request->sub_category_description;
 
-         if ($request->file('sub_cat_img') !='') {
+         if ($request->file('sub_category_img') !='') {
    
             $uploadPath = public_path('images/subCategory/');
-            $img = $request->file('sub_cat_img');
+            $img = $request->file('sub_category_img');
             $newFileName = time() . '.'. $img->getClientOriginalExtension();
-            unlink(public_path('images/subCategory/'.$subCategory->sub_cat_img));
-            $subCategory->sub_cat_img = $newFileName;
-            $request->sub_cat_img->move($uploadPath,$newFileName);
+            unlink(public_path('images/subCategory/'.$subCategory->sub_category_img));
+            $subCategory->sub_category_img = $newFileName;
+            $request->sub_category_img->move($uploadPath,$newFileName);
 
         }
        
@@ -135,9 +146,9 @@ class SubCategoryController extends Controller
      public function destroy($id)
     {
         $SubCategoryItem = SubCategory::find($id);
-        if($SubCategoryItem->sub_cat_img !='')
+        if($SubCategoryItem->sub_category_img !='')
         {
-            unlink(public_path('images/subCategory/'.$SubCategoryItem->sub_cat_img));
+            unlink(public_path('images/subCategory/'.$SubCategoryItem->sub_category_img));
 
         }
 
@@ -148,10 +159,10 @@ class SubCategoryController extends Controller
          public function formValidation($request){
         $this->validate($request,
         [
-            'cat_id' => 'required',
-            'sub_cat_name' => 'required',
-            'sub_cat_description' => 'required',
-            'sub_cat_img' => 'required',
+            'category_id' => 'required',
+            'sub_category_name' => 'required',
+            'sub_category_description' => 'required',
+            'sub_category_img' => 'required',
         ]);
     }
 

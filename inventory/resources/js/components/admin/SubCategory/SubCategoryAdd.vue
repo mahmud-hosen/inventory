@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <div class="content-wrapper">
@@ -17,13 +18,13 @@
                 <div class="card-body">
                    <div class="form-group">
                       <label for="exampleInputEmail1">Select Category</label>
-                      <select type="text" v-model="cat_id" class="form-control" id="exampleInputEmail1" name="cat_id" >
+                      <select type="text" v-model="category_id" class="form-control" id="exampleInputEmail1" name="category_id" >
                         <option :value="category.id"  v-for="category in getCategoryListFromStore" :key="category.id">
-                          {{ category.cat_name }}
+                          {{ category.category_name }}
                         </option>
                       </select>
-                          <div class="containError" v-if="errors && errors.cat_id">
-                                {{ errors.cat_id[0] }}
+                          <div class="containError" v-if="errors && errors.category_id">
+                                {{ errors.category_id[0] }}
                           </div>
                     </div>
 
@@ -31,30 +32,30 @@
                     <label for="inputName">Sub Category Name</label>
                     <input
                       type="text"
-                      v-model="sub_cat_name"
-                      id="sub_cat_name"
-                      name="sub_cat_name"
+                      v-model="sub_category_name"
+                      id="sub_category_name"
+                      name="sub_category_name"
                       class="form-control"
                     />
-                    <div class="containError" v-if="errors && errors.sub_cat_name">
-                      {{ errors.sub_cat_name[0] }}
+                    <div class="containError" v-if="errors && errors.sub_category_name">
+                      {{ errors.sub_category_name[0] }}
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label for="inputDescription">Sub Category Description</label>
                     <textarea
-                      id="sub_cat_description"
-                      v-model="sub_cat_description"
-                      name="sub_cat_description"
+                      id="sub_category_description"
+                      v-model="sub_category_description"
+                      name="sub_category_description"
                       class="form-control"
                       rows="4"
                     ></textarea>
                     <div
                       class="containError"
-                      v-if="errors && errors.sub_cat_description"
+                      v-if="errors && errors.sub_category_description"
                     >
-                      {{ errors.sub_cat_description[0] }}
+                      {{ errors.sub_category_description[0] }}
                     </div>
                   </div>
 
@@ -62,13 +63,13 @@
                     <label for="inputProjectLeader">Sub Category Image</label>
                     <input
                       type="file"
-                      id="sub_cat_img"
-                      name="sub_cat_img"
+                      id="sub_category_img"
+                      name="sub_category_img"
                       @change="getImg"
                       class="form-control"
                     />
-                    <div class="containError" v-if="errors && errors.sub_cat_img">
-                      {{ errors.sub_cat_img[0] }}
+                    <div class="containError" v-if="errors && errors.sub_category_img">
+                      {{ errors.sub_category_img[0] }}
                     </div>
                   </div>
                 </div>
@@ -116,18 +117,18 @@ export default {
 
   data() {
     return {
-      cat_id:"",
-      sub_cat_name: "",
-      sub_cat_description: "",
-      sub_cat_img: "",
+      category_id:"",
+      sub_category_name: "",
+      sub_category_description: "",
+      sub_category_img: "",
       errors: {},
     };
   },
 
   methods: {
     getImg(e) {
-      this.sub_cat_img = e.target.files[0];
-      if (this.sub_cat_img.size > 2097152) {
+      this.sub_category_img = e.target.files[0];
+      if (this.sub_category_img.size > 2097152) {
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -145,10 +146,10 @@ export default {
 
     SubCategorySave() {
       let form = new FormData();
-      form.append("cat_id", this.cat_id);
-      form.append("sub_cat_name", this.sub_cat_name);
-      form.append("sub_cat_description", this.sub_cat_description);
-      form.append("sub_cat_img", this.sub_cat_img);
+      form.append("category_id", this.category_id);
+      form.append("sub_category_name", this.sub_category_name);
+      form.append("sub_category_description", this.sub_category_description);
+      form.append("sub_category_img", this.sub_category_img);
 
       axios
         .post("/SubCategoryStore", form)

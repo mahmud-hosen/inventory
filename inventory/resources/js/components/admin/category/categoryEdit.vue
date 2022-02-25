@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <div class="content-wrapper">
@@ -16,53 +17,55 @@
               >
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="inputName">Category Name</label>
+                    <label for="inputName"> Name</label>
                     <input
                       type="text"
-                      v-model="cat_name"
-                      id="cat_name"
-                      name="cat_name"
+                      v-model="category_name"
+                      id="category_name"
+                      name="category_name"
                       class="form-control"
                     />
-                    <div class="containError" v-if="errors && errors.cat_name">
-                      {{ errors.cat_name[0] }}
+                    <div
+                      class="containError"
+                      v-if="errors && errors.category_name"
+                    >
+                      {{ errors.category_name[0] }}
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label for="inputDescription">Category Description</label>
                     <textarea
-                      id="cat_description"
-                      v-model="cat_description"
-                      name="cat_description"
+                      id="category_description"
+                      v-model="category_description"
+                      name="category_description"
                       class="form-control"
                       rows="4"
                     ></textarea>
                     <div
                       class="containError"
-                      v-if="errors && errors.cat_description"
+                      v-if="errors && errors.category_description"
                     >
-                      {{ errors.cat_description[0] }}
+                      {{ errors.category_description[0] }}
                     </div>
                   </div>
 
                   <div class="form-group">
-                          <label for="inputProjectLeader">Category Image</label>
-                          <input
-                            type="file"
-                            id="cat_img"
-                            name="cat_img"
-                            @change="getImg"
-                            class="form-control"
-                          />
-                          <div class="containError" v-if="errors && errors.cat_img">
-                            {{ errors.cat_img[0] }}
-                          </div>
-                      </div>
-
-                 
-
-                  
+                    <label for="inputProjectLeader">Category Image</label>
+                    <input
+                      type="file"
+                      id="category_image"
+                      name="category_image"
+                      @change="getImage"
+                      class="form-control"
+                    />
+                    <div
+                      class="containError"
+                      v-if="errors && errors.category_image"
+                    >
+                      {{ errors.category_image[0] }}
+                    </div>
+                  </div>
                 </div>
 
                 <div class="card-footer text-center">
@@ -92,33 +95,32 @@
 
 <script>
 export default {
+  name: "Edit",
 
-    name:'Edit',
-
-   created(){
-        axios.get('/categoryById/'+this.$route.params.categoryId).then((response)=>{
-          this.cat_name = response.data.categoryById.cat_name
-          this.cat_description = response.data.categoryById.cat_description
-          this.cat_img = response.data.categoryById.cat_img
-
-
-        })
-      },
-
+  created() {
+    axios
+      .get("/categoryById/" + this.$route.params.categoryId)
+      .then((response) => {
+        this.category_name = response.data.categoryById.category_name;
+        this.category_description =
+          response.data.categoryById.category_description;
+        this.category_image = response.data.categoryById.category_image;
+      });
+  },
 
   data() {
     return {
-      cat_name: "",
-      cat_description: "",
-      cat_img: "",
+      category_name: "",
+      category_description: "",
+      category_image: "",
       errors: {},
     };
   },
 
   methods: {
-    getImg(e) {
-      this.cat_img = e.target.files[0];
-      if (this.cat_img.size > 2097152) {
+    getImage(e) {
+      this.category_image = e.target.files[0];
+      if (this.category_image.size > 2097152) {
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -136,26 +138,24 @@ export default {
 
     categoryUpdate() {
       let form = new FormData();
-      form.append("cat_name", this.cat_name);
-      form.append("cat_description", this.cat_description);
-      form.append("cat_img", this.cat_img);
+      form.append("category_name", this.category_name);
+      form.append("category_description", this.category_description);
+      form.append("category_image", this.category_image);
 
-         axios.post(`/categoryUpdate/${this.$route.params.categoryId}`,form)
+      axios
+        .post(`/categoryUpdate/${this.$route.params.categoryId}`, form)
         .then((response) => {
-          this.$router.push('/categoryList');
+          this.$router.push("/categoryList");
           Toast.fire({
-            icon: 'success',
-            title: 'Category Updated successfully',
+            icon: "success",
+            title: "Category Updated successfully",
           });
-          console.log(response);
-        }).catch(error => {
+          
+        })
+        .catch((error) => {
           this.errors = error.response.data.errors;
         });
-
-  
-   
-   
-   },
+    },
 
     goBack() {
       this.$router.push("/categoryList");
@@ -169,7 +169,7 @@ export default {
 .containError {
   color: red;
 }
-.image{
+.image {
   height: 60px;
   width: 100px;
 }

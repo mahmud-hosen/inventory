@@ -6,7 +6,7 @@
         <!--/. container-fluid -->
         <div class="container-fluid">
           <div class="row justify-content-center">
-            <div class="col-md-9 mt-3">
+            <div class="col-md-12 mt-3">
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">Product List</h3>
@@ -25,6 +25,9 @@
                         <th>Product Name</th>
                         <th>Category Name</th>
                         <th>Sub Category Name</th>
+                        <th>Code</th>
+                        <th>Buying Price</th>
+                        <th>Selling Price</th>
                         <th>Description</th>
                         <th>Image</th>
                         <th>Status</th>
@@ -32,27 +35,48 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(productList, x) in getProductListFromStore" :key="productList.id">
+                      <tr v-for="(productList, x) in getProductListFromStore" :key="productList.id" >
                         <td>{{ x + 1 }}</td>
                         <td>{{ productList.product_name }}</td>
-                        <td>{{ productList.cat_name }}</td>
-                        <td>{{ productList.sub_cat_name }}</td>
-                        <td>{{ productList.sub_cat_description }}</td>
+                        <td>{{ productList.categories.category_name }}</td>
+                        <td>{{ productList.sub_categories.sub_category_name }}</td>
+                        <td>{{ productList.product_code }}</td>
+                        <td>{{ productList.product_buying_price }}</td>
+                        <td>{{ productList.product_selling_price }}</td>
+                        <td>{{ productList.product_description }}</td>
+
+
                         <td>
                           <img
-                            v-bind:src="`/images/product/${productList.product_img}`"
+                            v-bind:src="`/images/product/${productList.product_image}`"
                             class="image"
                           />
                         </td>
                         <td>
-                          <span v-if="productList.status == 1" class="badge badge-info right">Published</span>
-                          <span v-if="productList.status == 0" class="badge badge-danger right">Unpublished</span>
+                          <span
+                            v-if="productList.product_status == 1"
+                            class="badge badge-info right"
+                            >Published</span
+                          >
+                          <span
+                            v-if="productList.product_status == 0"
+                            class="badge badge-danger right"
+                            >Unpublished</span
+                          >
                         </td>
 
                         <td class="text-right py-0 align-middle">
                           <div class="btn-group btn-group-sm">
-                            <router-link :to="`/productEdit/${productList.id}`" class="btn btn-info "><i class="fas fa-edit"></i></router-link>
-                            <a @click.prevent="productDelete(productList.id)" class="btn btn-danger "><i class="fas fa-trash"></i></a>
+                            <router-link
+                              :to="`/productEdit/${productList.id}`"
+                              class="btn btn-info"
+                              ><i class="fas fa-edit"></i
+                            ></router-link>
+                            <a
+                              @click.prevent="productDelete(productList.id)"
+                              class="btn btn-danger"
+                              ><i class="fas fa-trash"></i
+                            ></a>
                           </div>
                         </td>
                       </tr>
@@ -100,11 +124,7 @@ export default {
         if (result.isConfirmed) {
           axios.get("/productDelete/" + id).then((response) => {
             this.$store.dispatch("productListSaveInStore");
-            Swal.fire(
-              "Deleted!",
-              "Product deleted successfully",
-              "success"
-            );
+            Swal.fire("Deleted!", "Product deleted successfully", "success");
           });
         }
       });
@@ -118,5 +138,4 @@ export default {
   height: 70px;
   width: 100px;
 }
-
 </style>

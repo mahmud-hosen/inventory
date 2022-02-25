@@ -160,6 +160,15 @@
                 
               </ul>
             </li>
+
+            <li class="nav-item">
+              <router-link to="/pos" class="nav-link">
+                <i class="nav-icon fas fa-tag"></i>
+                <p>
+                  POS
+                </p>
+              </router-link>
+            </li>
            
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
@@ -182,6 +191,7 @@
 
               </ul>
             </li>
+            
 
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
@@ -198,6 +208,27 @@
                   <router-link to="/SubCategoryList" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Sub Category List</p>
+                  </router-link>
+                </li>                
+             
+              </ul>
+            </li>
+
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-list"></i>
+                <p>
+                  Product Manage
+                  <i class="fas fa-angle-left right"></i>
+                  <span class="badge badge-info right">6</span>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+         
+                <li class="nav-item">
+                  <router-link to="/productList" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Product List</p>
                   </router-link>
                 </li>                
              

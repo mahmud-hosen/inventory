@@ -13,6 +13,10 @@ import SubCategoryEdit from './components/admin/SubCategory/SubCategoryEdit.vue'
 import productList from './components/admin/product/productList.vue';
 import productAdd from './components/admin/product/productAdd.vue';
 import productEdit from './components/admin/product/productEdit.vue';
+// ___________________________ Product Component ________________________________
+import pos from './components/admin/pos/pos.vue';
+
+
 
 export const routes = [
 
@@ -59,6 +63,14 @@ export const routes = [
         path: '/productEdit/:productId',
         component: productEdit
     },
+
+    //________________________________POS Route ______________
+    {
+        path: '/pos',
+        component: pos
+    },
+
+    
 
 
 

@@ -43,16 +43,16 @@ class CategoryController extends Controller
         $this->formValidation($request);
 
         $category = new Category();
-        $category->cat_name = $request->cat_name;
-        $category->cat_description = $request->cat_description;
+        $category->category_name = $request->category_name;
+        $category->category_description = $request->category_description;
 
-           if ($request->cat_img) {
+           if ($request->category_image) {
    
             $uploadPath = public_path('images/category/');
-            $img = $request->file('cat_img');
+            $img = $request->file('category_image');
             $newFileName = time() . '.'. $img->getClientOriginalExtension();
-            $category->cat_img = $newFileName;
-            $request->cat_img->move($uploadPath,$newFileName);
+            $category->category_image = $newFileName;
+            $request->category_image->move($uploadPath,$newFileName);
 
         }
        
@@ -96,17 +96,17 @@ class CategoryController extends Controller
     {
          $this->formValidation($request);
         $categoryItem = Category::find($id);
-        $categoryItem->cat_name = $request->cat_name;
-        $categoryItem->cat_description = $request->cat_description;
+        $categoryItem->category_name = $request->category_name;
+        $categoryItem->category_description = $request->category_description;
 
-         if ($request->file('cat_img') !='') {
+         if ($request->file('category_image') !='') {
             $uploadPath = public_path('images/category/');
-            $img = $request->file('cat_img');
+            $img = $request->file('category_image');
             $newFileName = time() . '.'. $img->getClientOriginalExtension();
              
-            unlink(public_path('images/category/'.$categoryItem->cat_img));
-            $categoryItem->cat_img = $newFileName;
-            $request->cat_img->move($uploadPath,$newFileName);
+            unlink(public_path('images/category/'.$categoryItem->category_image));
+            $categoryItem->category_image = $newFileName;
+            $request->category_image->move($uploadPath,$newFileName);
 
         }
        
@@ -124,9 +124,9 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $categoryItem = Category::find($id);
-        if($categoryItem->cat_img !='')
+        if($categoryItem->category_image !='')
         {
-            unlink(public_path('images/category/'.$categoryItem->cat_img));
+            unlink(public_path('images/category/'.$categoryItem->category_image));
 
         }
 
@@ -137,9 +137,9 @@ class CategoryController extends Controller
       public function formValidation($request){
         $this->validate($request,
         [
-            'cat_name' => 'required',
-            'cat_description' => 'required',
-            'cat_img' => 'required',
+            'category_name' => 'required',
+            'category_description' => 'required',
+            'category_image' => 'required',
 
 
         ]);

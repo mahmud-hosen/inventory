@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <!-- Content Wrapper. Contains page content -->
@@ -9,7 +10,7 @@
             <div class="col-md-9 mt-3">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Category List</h3>
+                  <h3 class="card-title">Sub Category List</h3>
                   <div class="text-right">
                     <router-link
                       to="/SubCategoryAdd"
@@ -37,12 +38,12 @@
                         :key="SubCategoryList.id"
                       >
                         <td>{{ x + 1 }}</td>
-                        <td>{{ SubCategoryList.cat_name }}</td>
-                        <td>{{ SubCategoryList.sub_cat_name }}</td>
-                        <td>{{ SubCategoryList.sub_cat_description }}</td>
+                        <td>{{ SubCategoryList.categories.category_name }}</td>
+                        <td>{{ SubCategoryList.sub_category_name }}</td>
+                        <td>{{ SubCategoryList.sub_category_description }}</td>
                         <td>
                           <img
-                            v-bind:src="`/images/subCategory/${SubCategoryList.sub_cat_img}`"
+                            v-bind:src="`/images/subCategory/${SubCategoryList.sub_category_img}`"
                             class="image"
                           />
                         </td>
@@ -110,9 +111,7 @@ export default {
           axios.get("/SubCategoryDelete/" + id).then((response) => {
             this.$store.dispatch("SubCategoryListSaveInStore");
             Swal.fire(
-              "Deleted!",
-              "Sub Category deleted successfully",
-              "success"
+              "Deleted!","Sub Category deleted successfully","success"
             );
           });
         }
