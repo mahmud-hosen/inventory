@@ -3113,6 +3113,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   //  Step: 4
   mounted: function mounted() {
@@ -3135,6 +3145,7 @@ __webpack_require__.r(__webpack_exports__);
       category_id: "",
       sub_category_id: "",
       product_name: "",
+      serachValue: "",
       errors: {}
     };
   },
@@ -3163,14 +3174,47 @@ __webpack_require__.r(__webpack_exports__);
         _this3.total = response.data.total; // console.log(response.data.cartTotalQuantity);
       });
     },
-    clearCart: function clearCart() {
+    removeItem: function removeItem(id) {
       var _this4 = this;
 
-      axios.get("/clearCart/").then(function (response) {
+      axios.get("/removeItemFromCart/" + id).then(function (response) {
         _this4.cartProducts = response.data.cartProducts;
         _this4.cartTotalQuantity = response.data.cartTotalQuantity;
         _this4.subTotal = response.data.subTotal;
         _this4.total = response.data.total;
+      });
+    },
+    clearCart: function clearCart() {
+      var _this5 = this;
+
+      axios.get("/clearCart/").then(function (response) {
+        _this5.cartProducts = response.data.cartProducts;
+        _this5.cartTotalQuantity = response.data.cartTotalQuantity;
+        _this5.subTotal = response.data.subTotal;
+        _this5.total = response.data.total;
+      });
+    },
+    serachProduct: function serachProduct() {
+      var _this6 = this;
+
+      axios.get("/getProductBySearch/" + this.serachValue).then(function (response) {
+        _this6.productList = response.data.productListBySearch;
+      });
+    },
+    updateCart: function updateCart(id, quantity) {
+      var _this7 = this;
+
+      var form = new FormData();
+      form.append("id", id);
+      form.append("quantity", quantity);
+      axios.post("/updateCart", form).then(function (response) {
+        _this7.cartProducts = response.data.cartProducts;
+        _this7.cartTotalQuantity = response.data.cartTotalQuantity;
+        _this7.subTotal = response.data.subTotal;
+        _this7.total = response.data.total; // console.log(response);
+      })["catch"](function (error) {
+        _this7.errors = error.response.data.errors;
+        console.log(_this7.error);
       });
     } // goBack() {
     //   this.$router.push("/productList");
@@ -45393,7 +45437,61 @@ var render = function () {
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(product.price))]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(product.quantity))]),
+                            _c("td", [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: product.quantity,
+                                    expression: "product.quantity",
+                                  },
+                                ],
+                                staticClass: "w-100 form-conrol",
+                                attrs: {
+                                  min: "1",
+                                  type: "number",
+                                  name: "quantity",
+                                },
+                                domProps: { value: product.quantity },
+                                on: {
+                                  change: function ($event) {
+                                    return _vm.updateCart(
+                                      product.id,
+                                      product.quantity
+                                    )
+                                  },
+                                  input: function ($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      product,
+                                      "quantity",
+                                      $event.target.value
+                                    )
+                                  },
+                                },
+                              }),
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("div", {}, [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn btn-danger btn-sm",
+                                    on: {
+                                      click: function ($event) {
+                                        $event.preventDefault()
+                                        return _vm.removeItem(product.id)
+                                      },
+                                    },
+                                  },
+                                  [_c("i", { staticClass: "fas fa-trash-alt" })]
+                                ),
+                              ]),
+                            ]),
                           ])
                         }),
                         _vm._v(" "),
@@ -45585,6 +45683,40 @@ var render = function () {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
+                  _c(
+                    "div",
+                    { staticClass: "input-group input-group-sm mb-1" },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.serachValue,
+                            expression: "serachValue",
+                          },
+                        ],
+                        staticClass: "form-control form-control",
+                        attrs: {
+                          name: "serachValue",
+                          type: "search",
+                          placeholder: "Search",
+                          "aria-label": "Search",
+                        },
+                        domProps: { value: _vm.serachValue },
+                        on: {
+                          keyup: _vm.serachProduct,
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.serachValue = $event.target.value
+                          },
+                        },
+                      }),
+                    ]
+                  ),
+                  _vm._v(" "),
                   _c("table", { staticClass: "table table-bordered" }, [
                     _vm._m(2),
                     _vm._v(" "),
@@ -45676,6 +45808,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Price")]),
         _vm._v(" "),
         _c("th", [_vm._v("Qty")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")]),
       ]),
     ])
   },

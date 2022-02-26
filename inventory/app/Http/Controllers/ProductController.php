@@ -46,8 +46,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
-
         $this->formValidation($request);
         
         $product = new Product();
@@ -168,6 +166,16 @@ class ProductController extends Controller
     {
          $productListBySubCategoryId = Product::where('sub_category_id',$id)->get();
         return response()->json(['productListBySubCategoryId'=>$productListBySubCategoryId],200);
+   
+    }
+    
+    public function getProductBySearch($value)
+    {   // dd($value);
+        // $productListBySearch = Product::where('sub_category_id',$id)->get();
+        $productListBySearch = Product::where('product_name','LIKE','%'.$value.'%')
+                ->orWhere('product_selling_price','LIKE','%'.$value.'%')
+                ->get();
+        return response()->json(['productListBySearch'=>$productListBySearch],200);
    
     }
 

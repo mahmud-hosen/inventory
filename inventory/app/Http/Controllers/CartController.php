@@ -39,6 +39,39 @@ class CartController extends Controller
          return response()->json(['cartProducts'=>$cartProducts,'cartTotalQuantity'=>$cartTotalQuantity,'subTotal'=>$subTotal,'total'=>$total],200);
    
     }
+    public function updateCart(Request $request)
+    {
+       $id = $request->id;
+       $update = Cart::update($id, array(
+        'quantity' => array(
+            'relative' => false,
+            'value' => $request->quantity,
+          ),
+        ));
+        if($update)
+        {
+            $cartProducts = Cart::getContent();
+            $cartTotalQuantity = Cart::getTotalQuantity();
+            $subTotal = Cart::getSubTotal();
+            $total = Cart::getTotal();
+            return response()->json(['cartProducts'=>$cartProducts,'cartTotalQuantity'=>$cartTotalQuantity,'subTotal'=>$subTotal,'total'=>$total],200);
+        }  
+    }
+     public function removeItemFromCart( $id)
+    {
+       $remove = Cart::remove($id);
+        if($remove)
+        {
+            $cartProducts = Cart::getContent();
+            $cartTotalQuantity = Cart::getTotalQuantity();
+            $subTotal = Cart::getSubTotal();
+            $total = Cart::getTotal();
+            return response()->json(['cartProducts'=>$cartProducts,'cartTotalQuantity'=>$cartTotalQuantity,'subTotal'=>$subTotal,'total'=>$total],200);
+        }  
+    }
+    
+
+    
     
 
     

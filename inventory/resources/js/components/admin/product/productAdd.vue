@@ -306,9 +306,7 @@ export default {
       form.append("product_image", this.product_image);
       form.append("product_status", this.product_status);
 
-      axios
-        .post("/productStore", form)
-        .then((response) => {
+      axios.post("/productStore", form).then((response) => {
           this.$router.push("/productList");
           Toast.fire({
             icon: "success",

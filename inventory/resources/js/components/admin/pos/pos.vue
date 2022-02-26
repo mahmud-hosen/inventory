@@ -19,9 +19,11 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">Products</h3>
-                    <div class="text-right">
-                      <a class="btn btn-primary btn-sm" @click.prevent="clearCart">Clear</a >
-                    </div>
+                  <div class="text-right">
+                    <a class="btn btn-primary btn-sm" @click.prevent="clearCart"
+                      >Clear</a
+                    >
+                  </div>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -32,6 +34,8 @@
                         <th>Product</th>
                         <th>Price</th>
                         <th>Qty</th>
+                        <th>Action</th>
+
                       </tr>
                     </thead>
                     <tbody>
@@ -42,14 +46,21 @@
                         <td>{{ x + 1 }}</td>
                         <td>{{ product.name }}</td>
                         <td>{{ product.price }}</td>
-                        <td>{{ product.quantity }}</td>
-
+                        <td>
+                          <input class="w-100 form-conrol" min="1" type="number" name="quantity" v-model="product.quantity" @change="updateCart(product.id,product.quantity)">  
+                        </td>
+                        <td>
+                          <div class="">
+                            <a @click.prevent="removeItem(product.id)" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+                          </div>
+                        </td>
                         
+
                       </tr>
-                       <tr>
+                      <tr>
                         <td colspan="2" class="text-center">Total</td>
-                        <th>{{total}}</th>
-                        <th>{{cartTotalQuantity}}</th>
+                        <th>{{ total }}</th>
+                        <th>{{ cartTotalQuantity }}</th>
                       </tr>
                     </tbody>
                   </table>
@@ -118,6 +129,10 @@
 
                 <!-- /.card-header -->
                 <div class="card-body">
+                  <div class="input-group input-group-sm mb-1">
+                    <input  v-model="serachValue" name="serachValue" @keyup="serachProduct"  class="form-control form-control" type="search" placeholder="Search" aria-label="Search">
+                        
+                  </div>
                   <table class="table table-bordered">
                     <thead>
                       <tr>
@@ -129,7 +144,6 @@
                       </tr>
                     </thead>
                     <tbody>
-                     
                       <tr v-for="(product, x) in productList" :key="product.id">
                         <td>{{ x + 1 }}</td>
                         <td>{{ product.product_name }}</td>
@@ -143,11 +157,7 @@
 
                         <td>
                           <div class="">
-                            <a
-                              @click.prevent="addCart(product.id)"
-                              class="btn btn-info btn-sm"
-                              ><i class="fas fa-shopping-cart"></i>
-                            </a>
+                            <a @click.prevent="addCart(product.id)" class="btn btn-info btn-sm"><i class="fas fa-shopping-cart"></i></a>
                           </div>
                         </td>
                       </tr>
@@ -213,6 +223,7 @@ export default {
       category_id: "",
       sub_category_id: "",
       product_name: "",
+      serachValue:"",
       errors: {},
     };
   },
@@ -225,9 +236,7 @@ export default {
         });
     },
     getProduct() {
-      axios
-        .get("/getProductBySubCategoryId/" + this.sub_category_id)
-        .then((response) => {
+      axios.get("/getProductBySubCategoryId/" + this.sub_category_id).then((response) => {
           this.productList = response.data.productListBySubCategoryId;
         });
     },
@@ -241,17 +250,54 @@ export default {
         // console.log(response.data.cartTotalQuantity);
       });
     },
+
+    removeItem(id) {
+      axios.get("/removeItemFromCart/" + id).then((response) => {
+        this.cartProducts = response.data.cartProducts;
+        this.cartTotalQuantity = response.data.cartTotalQuantity;
+        this.subTotal = response.data.subTotal;
+        this.total = response.data.total;
+      });
+    },
+
+
     clearCart() {
       axios.get("/clearCart/").then((response) => {
         this.cartProducts = response.data.cartProducts;
         this.cartTotalQuantity = response.data.cartTotalQuantity;
         this.subTotal = response.data.subTotal;
         this.total = response.data.total;
-
       });
     },
-
     
+    serachProduct() {
+
+      axios.get("/getProductBySearch/" + this.serachValue).then((response) => {
+          this.productList = response.data.productListBySearch;
+        });
+    },
+    
+
+     updateCart(id,quantity) {
+      let form = new FormData();
+      form.append("id",id);
+      form.append("quantity",quantity);
+
+      axios.post("/updateCart", form).then((response) => {
+        this.cartProducts = response.data.cartProducts;
+        this.cartTotalQuantity = response.data.cartTotalQuantity;
+        this.subTotal = response.data.subTotal;
+        this.total = response.data.total;
+        
+          // console.log(response);
+        })
+        .catch((error) => {
+          this.errors = error.response.data.errors;
+          console.log(this.error);
+        });
+    },
+   
+
 
     // goBack() {
     //   this.$router.push("/productList");

@@ -50,6 +50,8 @@ Route::get('/SubCategoryDelete/{id}', 'SubCategoryController@destroy')->name('Su
 
 Route::get('/getSubcategoryByCategoryId/{id}', 'ProductController@getSubcategoryByCategoryId')->name('product.getSubcategoryByCategoryId');
 Route::get('/getProductBySubCategoryId/{id}', 'ProductController@getProductBySubCategoryId')->name('product.getProductBySubCategoryId');
+Route::get('/getProductBySearch/{value}', 'ProductController@getProductBySearch')->name('product.getProductBySearch');
+
 
 //Route for category
 Route::post('/productStore', 'ProductController@store')->name('product.store');
@@ -69,6 +71,9 @@ Route::get('/productDelete/{id}', 'ProductController@destroy')->name('product.de
 //............................Cart Route ........................
 Route::get('/productAddToCart/{id}', 'CartController@productAddToCart')->name('cart.productAddToCart');
 Route::get('/clearCart', 'CartController@clearCart')->name('cart.clearCart');
+Route::get('/removeItemFromCart/{id}', 'CartController@removeItemFromCart')->name('cart.removeItemFromCart');
+Route::post('/updateCart', 'CartController@updateCart')->name('cart.updateCart');
+
 
 
 
