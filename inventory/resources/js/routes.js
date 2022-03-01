@@ -13,8 +13,17 @@ import SubCategoryEdit from './components/admin/SubCategory/SubCategoryEdit.vue'
 import productList from './components/admin/product/productList.vue';
 import productAdd from './components/admin/product/productAdd.vue';
 import productEdit from './components/admin/product/productEdit.vue';
-// ___________________________ Product Component ________________________________
+// ___________________________ POS Component ________________________________
 import pos from './components/admin/pos/pos.vue';
+
+// ___________________________ Customer Component ________________________________
+import customerList from './components/admin/customer/customerList.vue';
+import customerAdd from './components/admin/customer/customerAdd.vue';
+import customerEdit from './components/admin/customer/customerEdit.vue';
+
+// ___________________________ Invoice Component ________________________________
+import createInvoice from './components/admin/pos/invoice.vue';
+
 
 
 
@@ -69,9 +78,13 @@ export const routes = [
         path: '/pos',
         component: pos
     },
+    //________________________________ Customer Route ______________
+    { path: '/customerList', component: customerList },
+    { path: '/customerAdd', component: customerAdd },
+    { path: '/customerEdit/:customerId', component: customerEdit },
 
-    
-
+    //________________________________ Invoice Route ______________
+    { path: '/createInvoice/:customerId', component: createInvoice },
 
 
 

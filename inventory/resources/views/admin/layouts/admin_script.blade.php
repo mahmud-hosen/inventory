@@ -8,6 +8,11 @@
   </script>
   <!-- Bootstrap 4 -->
   <script src="{{asset('admin')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Select2 -->
+  <script src="{{asset('admin')}}/plugins/select2/js/select2.full.min.js"></script>
+  <link rel="stylesheet" href="{{asset('admin')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  
+
   <!-- ChartJS -->
   <script src="{{asset('admin')}}/plugins/chart.js/Chart.min.js"></script>
   <!-- Sparkline -->
@@ -36,5 +41,8 @@
   
   <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+
+
+  
 
     

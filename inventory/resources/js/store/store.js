@@ -5,7 +5,8 @@ export default {
     state: {
         category: [],
         SubCategory: [],
-        product: []
+        product: [],
+        customer:[]
 
     },
 
@@ -20,6 +21,10 @@ export default {
         productListFromStore(state) {
             return state.product
         },
+        customerListFromStore(state) {
+            return state.customer
+        },
+        
 
 
     },
@@ -43,6 +48,12 @@ export default {
             })
         },
 
+        customerListSaveInStore(context) {
+            Axios.get('/customerList').then((response) => {
+                context.commit('AllCustomerList', response.data.AllCustomerList)
+            })
+        },
+
     },
 
     //  Step: 8
@@ -56,5 +67,9 @@ export default {
         AllProductListItem(state, responseData) {
             return state.product = responseData
         },
+        AllCustomerList(state, responseData) {
+            return state.customer = responseData
+        },
+        
     }
 }

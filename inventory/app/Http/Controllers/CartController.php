@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Cart;
 use App\Product;
+use App\Customer;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -69,6 +70,24 @@ class CartController extends Controller
             return response()->json(['cartProducts'=>$cartProducts,'cartTotalQuantity'=>$cartTotalQuantity,'subTotal'=>$subTotal,'total'=>$total],200);
         }  
     }
+    
+     public function createInvoice($id)
+     {
+         if(Cart::isEmpty()){
+           //
+         }else{
+            $customerDetails = Customer::find($id);
+
+            $cartProductsList = Cart::getContent();
+            $cartTotalQuantity = Cart::getTotalQuantity();
+            $subTotal = Cart::getSubTotal();
+            $total = Cart::getTotal();
+            return response()->json(['customerDetails'=>$customerDetails,'cartProductsList'=>$cartProductsList,'cartTotalQuantity'=>$cartTotalQuantity,'subTotal'=>$subTotal,'total'=>$total],200);
+
+         }
+        
+
+     }
     
 
     

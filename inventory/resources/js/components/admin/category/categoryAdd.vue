@@ -128,9 +128,7 @@ export default {
       form.append("category_description", this.category_description);
       form.append("category_image", this.category_image);
 
-      axios
-        .post("/categoryStore", form)
-        .then((response) => {
+      axios.post("/categoryStore", form).then((response) => {
           this.$router.push("/categoryList");
           Toast.fire({
             icon: "success",

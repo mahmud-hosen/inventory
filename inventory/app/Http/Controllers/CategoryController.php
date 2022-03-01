@@ -129,7 +129,6 @@ class CategoryController extends Controller
             unlink(public_path('images/category/'.$categoryItem->category_image));
 
         }
-
         Category::destroy($id);
        return ['status'=>'success'];
 

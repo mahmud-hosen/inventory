@@ -73,6 +73,17 @@ Route::get('/productAddToCart/{id}', 'CartController@productAddToCart')->name('c
 Route::get('/clearCart', 'CartController@clearCart')->name('cart.clearCart');
 Route::get('/removeItemFromCart/{id}', 'CartController@removeItemFromCart')->name('cart.removeItemFromCart');
 Route::post('/updateCart', 'CartController@updateCart')->name('cart.updateCart');
+Route::get('/createInvoice/{id}', 'CartController@createInvoice')->name('cart.createInvoice');
+
+
+
+//............................Customer Route ........................
+
+Route::post('/customerStore', 'CustomerController@store')->name('customer.store');
+Route::get('/customerList', 'CustomerController@index')->name('customer.index');
+Route::get('/customerById/{id}', 'CustomerController@edit')->name('customer.edit');
+Route::post('/customerUpdate/{id}', 'CustomerController@update')->name('customer.update');
+Route::get('/customerDelete/{id}', 'CustomerController@destroy')->name('customer.delete');
 
 
 

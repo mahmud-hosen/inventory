@@ -65,7 +65,35 @@
                     </tbody>
                   </table>
                 </div>
-                <!-- /.card-body -->
+                <div class="card-footer">
+                  <div class="row">
+                    
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <select  type="text"  v-model="customer_id" class="form-control select2bs4" name="customer_id" style="width: 100%">
+                          <option selected="selected" disabled="disabled">
+                            Select a Customer
+                          </option>
+
+                          <option :value="customer.id" v-for="customer in getCustomerListFromStore"  :key="customer.id"  >
+                            {{ customer.customer_name }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6 ">
+                       <router-link to="/customerAdd" class="btn btn-info float-right">Add Customer</router-link>
+                      
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <router-link :to="`/createInvoice/${this.customer_id}`" class="btn btn-info btn-block">Create Invoice</router-link>
+                       
+                    </div>
+                  </div>
+                  
+                </div>
               </div>
               <!-- /.card -->
             </div>
@@ -199,17 +227,23 @@
 
 <script>
 export default {
-  //  Step: 4
+
   mounted() {
     this.$store.dispatch("CategoryListSaveInStore");
+    this.$store.dispatch("customerListSaveInStore");
+
   },
 
-  //  Step: 10
   computed: {
     getCategoryListFromStore() {
       return this.$store.getters.categoryListFromStore;
     },
+    getCustomerListFromStore() {
+      return this.$store.getters.customerListFromStore;
+    },
   },
+
+   
 
   data() {
     return {
@@ -224,6 +258,8 @@ export default {
       sub_category_id: "",
       product_name: "",
       serachValue:"",
+
+      customer_id:"",
       errors: {},
     };
   },

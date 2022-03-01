@@ -49,11 +49,7 @@
 
                         <td>
                           <div class="">
-                            <router-link
-                              :to="`/editCategory/${CategoryList.id}`"
-                              class="btn btn-info btn-xs"
-                              ><i class="fas fa-edit"></i
-                            ></router-link>
+                            <router-link :to="`/editCategory/${CategoryList.id}`" class="btn btn-info btn-xs" ><i class="fas fa-edit"></i ></router-link>
                             <a
                               @click.prevent="categoryDelete(CategoryList.id)"
                               class="btn btn-info btn-xs"
