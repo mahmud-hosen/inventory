@@ -71,11 +71,7 @@
                   <button type="submit" class="btn btn-primary btn-sm">
                     Submit
                   </button>
-                  <button
-                    type="submit"
-                    @click="goBack"
-                    class="btn btn-danger btn-sm px-3"
-                  >
+                  <button type="submit" @click="goBack" class="btn btn-danger btn-sm px-3" >
                     Back
                   </button>
                 </div>

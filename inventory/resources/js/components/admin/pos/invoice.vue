@@ -122,15 +122,15 @@
                       </tr>
                       <tr>
                         <th>Tax (5%)</th>
-                        <td>{{subTotal*0.05}}</td>
+                        <td>{{tax}}</td>
                       </tr>
                       <tr>
                         <th>Shipping:</th>
-                        <td>$30</td>
+                        <td>{{Shipping}}</td>
                       </tr>
                       <tr>
                         <th>Total:</th>
-                        <td>{{subTotal+subTotal*0.05+30}}</td>
+                        <td>{{total}}</td>
                       </tr>
                     </table>
                   </div>
@@ -143,12 +143,18 @@
               <div class="row no-print">
                 <div class="col-12">
                   <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                  <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
+                  <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-default"><i class="far fa-credit-card"></i> Submit
                     Payment
                   </button>
-                  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                  <!-- <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+                    Launch Default Modal
+                 </button> -->
+
+                  <a type="button" @click.prevent="GeneratePDF" class="btn btn-primary float-right" style="margin-right: 5px;">
                     <i class="fas fa-download"></i> Generate PDF
-                  </button>
+                  </a>
+                  <!-- <a @click.prevent="GeneratePDF()" class="btn btn-info btn-xs" ><i class="fas fa-trash"></i></a> -->
+                 
                 </div>
               </div>
             </div>
@@ -158,8 +164,58 @@
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+    <!-- Payment Modal Start  -->
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Payment</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <h4 class="text-center">Totall:{{total}}</h4>
+            <div class="modal-body">
+                         <div class="row">
+                                <div class="col-md-6 mt-4">
+                                    <select v-model="payment_method" name="payment_method" class="form-control " id="payment_status" required>
+                                        <option value="" disabled="" selected="">Select Payment Method </option>
+                                        <option value="handCash">HandCash </option>
+                                        <option value="cheque">Cheque </option>
+                                        <option value="due">Due </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="name">Pay</label>
+                                         <input type="number" v-model="pay" name="pay" @keyup="paymentAmount" id="pay"  class="form-control" >
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="name">Due</label>
+                                         <input type="text" v-model="due" name="due" id="due"  class="form-control" disabled>
+                                    </div>
+                                </div>
+                         </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" @click.prevent="confirm_order" class="btn btn-primary" >Confirm Order</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+    <!-- Paymeny Modeal End-->
+
+
   </div>
   </div>
+  
 </template>
 
 <script>
@@ -167,24 +223,32 @@ export default {
    
    created() {
     axios.get("/createInvoice/" + this.$route.params.customerId).then((response) => {
-        console.log(response);
         this.cartProductsList = response.data.cartProductsList;
         this.customerDetails = response.data.customerDetails;
         this.cartTotalQuantity = response.data.cartTotalQuantity;
         this.subTotal = response.data.subTotal;
-        this.total = response.data.total;
+        this.tax = response.data.subTotal*0.05;
+        this.Shipping = 30;
+        this.total = this.subTotal+this.tax+this.Shipping;
         }).catch((error) => {
           this.errors = error.response.data.errors;
-          console.log(this.errors);
+          // console.log(this.errors);
         });
   },
 
 
   data() {
     return {
+      customerId:"",
       cartProductsList: [],
       customerDetails:[],
       cartTotalQuantity: "",
+      order_date:"",
+      payment_method:"",
+      Shipping:"",
+      tax:"",
+      pay:"",
+      due:"",
       subTotal: "",
       total: "",
       errors: {},
@@ -193,6 +257,55 @@ export default {
   },
 
   methods: {
+    GeneratePDF(){
+          let form = new FormData();
+          form.append("customer_name", this.customerDetails.customer_name);
+          form.append("customer_address", this.customerDetails.customer_address);
+          form.append("customer_phone", this.customerDetails.customer_phone);
+
+          form.append("customerId", this.$route.params.customerId);
+          form.append("Shipping", this.Shipping);
+          form.append("tax", this.tax);
+          form.append("total", this.total);
+
+         axios.post("/GeneratePDF/",form).then((response) => {
+        // this.cartProductsList = response.data.cartProductsList;
+         }).catch((error) => {
+          // this.errors = error.response.data.errors;
+          // console.log(this.errors);
+        });
+    },
+     paymentAmount() {
+       this.due = this.total-this.pay;
+    },
+      confirm_order(){
+          let form = new FormData();
+          
+          form.append("customerId", this.$route.params.customerId);
+          form.append("order_status","Pending");
+          form.append("payment_status","Due");
+          form.append("payment_method", this.payment_method);
+          form.append("Shipping", this.Shipping);
+          form.append("tax", this.tax);
+          form.append("pay", this.pay);
+          form.append("due", this.due);
+          form.append("subTotal", this.subTotal);
+          form.append("total", this.total);
+
+        
+         axios.post("/confirm_order", form).then((response) => {
+          this.$router.push("/pos");
+          Toast.fire({
+            icon: "success",
+            title: "Order Created Successfully ",
+          });
+          // console.log(response);
+        })
+        .catch((error) => {
+          this.errors = error.response.data.errors;
+          console.log(this.error);
+        });
+    },
    
   },
 };

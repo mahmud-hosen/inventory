@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Cart;
+use PDF;
+
 use App\Product;
 use App\Customer;
 use Illuminate\Http\Request;

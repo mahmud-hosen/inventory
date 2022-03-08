@@ -160,28 +160,7 @@ export default {
     },
 
 
-    CustomerSave() {
-      let form = new FormData();
-      form.append("customer_name", this.customer_name);
-      form.append("customer_phone", this.customer_phone);
-      form.append("customer_shop_name", this.customer_shop_name);
-      form.append("customer_address", this.customer_address);
-      form.append("customer_bank_name", this.customer_bank_name);
-      form.append("customer_account_number", this.customer_account_number);
-      form.append("customer_image", this.customer_image);
-
-      axios.post("/customerStore", form).then((response) => {
-          this.$router.push("/customerList");
-          Toast.fire({
-            icon: "success",
-            title: "Customer added successfully",
-          });
-          // console.log(response);
-        })
-        .catch((error) => {
-          this.errors = error.response.data.errors;
-        });
-    },
+    
     customerUpdate() {
       let form = new FormData();
       form.append("customer_name", this.customer_name);

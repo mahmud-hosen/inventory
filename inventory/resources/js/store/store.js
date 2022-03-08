@@ -6,7 +6,10 @@ export default {
         category: [],
         SubCategory: [],
         product: [],
-        customer:[]
+        customer: [],
+        order: [],
+        employee: [],
+
 
     },
 
@@ -24,7 +27,14 @@ export default {
         customerListFromStore(state) {
             return state.customer
         },
-        
+        orderListFromStore(state) {
+            return state.order
+        },
+        employeeListFromStore(state) {
+            return state.employee
+        },
+
+
 
 
     },
@@ -53,6 +63,18 @@ export default {
                 context.commit('AllCustomerList', response.data.AllCustomerList)
             })
         },
+        OrderListSaveInStore(context) {
+            Axios.get('/orderList').then((response) => {
+                context.commit('AllOrderList', response.data.orderList)
+            })
+        },
+        employeeListSaveInStore(context) {
+            Axios.get('/employeeList').then((response) => {
+                context.commit('AllEmployeeList', response.data.EmployeeList)
+            })
+        },
+
+
 
     },
 
@@ -70,6 +92,15 @@ export default {
         AllCustomerList(state, responseData) {
             return state.customer = responseData
         },
-        
+        AllOrderList(state, responseData) {
+            return state.order = responseData
+        },
+        AllEmployeeList(state, responseData) {
+            return state.employee = responseData
+        },
+
+
+
+
     }
 }

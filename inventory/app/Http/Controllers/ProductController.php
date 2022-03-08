@@ -73,7 +73,6 @@ class ProductController extends Controller
         $product->save();
         return ['status'=>'Success'];
 
-        dd($request);
     }
 
     /**

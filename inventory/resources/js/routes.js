@@ -24,6 +24,21 @@ import customerEdit from './components/admin/customer/customerEdit.vue';
 // ___________________________ Invoice Component ________________________________
 import createInvoice from './components/admin/pos/invoice.vue';
 
+// ___________________________ Order Component ________________________________
+import orderList from './components/admin/order/orderList.vue';
+import orderDetails from './components/admin/order/orderDetails.vue';
+
+// ___________________________ Employee Component ________________________________
+import employeeAdd from './components/admin/Employee/employeeAdd.vue';
+import employeeEdit from './components/admin/Employee/employeeEdit.vue';
+import employeeList from './components/admin/Employee/employeeList.vue';
+
+
+
+
+          
+
+
 
 
 
@@ -86,6 +101,17 @@ export const routes = [
     //________________________________ Invoice Route ______________
     { path: '/createInvoice/:customerId', component: createInvoice },
 
+    //________________________________ Order Route ______________
+    { path: '/orderList', component: orderList },
+    { path: '/orderDetails/:orderId', component: orderDetails },
+    //________________________________ Employee Route ______________
+    { path: '/employeeAdd', component: employeeAdd },
+    { path: '/employeeList', component: employeeList },
+    { path: '/employeeEdit/:employeeId', component: employeeEdit },
 
+
+
+
+    
 
 ]

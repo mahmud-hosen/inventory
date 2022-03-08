@@ -255,6 +255,47 @@
              
               </ul>
             </li>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-list"></i>
+                <p>
+                  Order Manage
+                  <i class="fas fa-angle-left right"></i>
+                  <span class="badge badge-info right">6</span>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+         
+                <li class="nav-item">
+                  <router-link to="/orderList" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Order List</p>
+                  </router-link>
+                </li>                
+             
+              </ul>
+            </li>
+
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-list"></i>
+                <p>
+                    Employee Manage
+                  <i class="fas fa-angle-left right"></i>
+                  <span class="badge badge-info right">6</span>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+         
+                <li class="nav-item">
+                  <router-link to="/employeeList" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Employee List</p>
+                  </router-link>
+                </li>                
+             
+              </ul>
+            </li>
            
             <li class="nav-header">EXAMPLES</li>
             <li class="nav-item">

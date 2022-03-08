@@ -75,6 +75,9 @@ Route::get('/removeItemFromCart/{id}', 'CartController@removeItemFromCart')->nam
 Route::post('/updateCart', 'CartController@updateCart')->name('cart.updateCart');
 Route::get('/createInvoice/{id}', 'CartController@createInvoice')->name('cart.createInvoice');
 
+//............................Document Route ..............................................
+Route::post('/GeneratePDF', 'DocumentController@GeneratePDF')->name('Document.GeneratePDF');
+
 
 
 //............................Customer Route ........................
@@ -84,6 +87,29 @@ Route::get('/customerList', 'CustomerController@index')->name('customer.index');
 Route::get('/customerById/{id}', 'CustomerController@edit')->name('customer.edit');
 Route::post('/customerUpdate/{id}', 'CustomerController@update')->name('customer.update');
 Route::get('/customerDelete/{id}', 'CustomerController@destroy')->name('customer.delete');
+
+//............................Order Route ........................
+Route::post('/confirm_order', 'OrderController@confirm_order')->name('order.confirm_order');
+Route::get('/orderList', 'OrderController@orderList')->name('order.orderList');
+Route::get('/orderDetails/{id}', 'OrderController@orderDetails')->name('order.orderDetails');
+Route::get('/aprove_order/{id}', 'OrderController@aprove_order')->name('order.aprove_order');
+Route::get('/pending_order/{id}', 'OrderController@pending_order')->name('order.pending_order');
+Route::get('/delete_Order/{id}', 'OrderController@delete_Order')->name('order.delete_Order');
+//............................Customer Route ........................
+
+Route::post('/employeeStore', 'EmployeeController@store')->name('employee.store');
+Route::get('/employeeList', 'EmployeeController@index')->name('employee.index');
+Route::get('/employeeById/{id}', 'EmployeeController@edit')->name('employee.edit');
+Route::post('/employeeUpdate/{id}', 'EmployeeController@update')->name('employee.update');
+Route::get('/employeeDelete/{id}', 'EmployeeController@destroy')->name('employee.delete');
+
+
+
+
+
+
+
+
 
 
 

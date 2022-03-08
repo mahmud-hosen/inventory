@@ -2,50 +2,55 @@
 <template>
   <div>
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+   <div class="content-wrapper">
       <section class="content">
         <!--/. container-fluid -->
         <div class="container-fluid">
           <div class="row justify-content-center">
-            <div class="col-md-7 mt-3">
+            <div class="col-md-10 mt-3">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Category List</h3>
-                  <div class="text-right">
-                    <router-link
-                      to="/categoryAdd"
-                      class="btn btn-primary btn-sm"
-                      >Add</router-link
-                    >
-                  </div>
+                  <h3 class="card-title">Order List</h3> 
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th style="width: 10px">SN</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Image</th>
+                        <th style="width: 10px">#</th>
+                        <th>Customer Name</th>
+                        <th>Total</th>
+                        <th>Order Date</th>
+                        <th>Payment Status</th>
+                        <th>Payment Method</th>
+                        <th>Order Status</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr
-                        v-for="(CategoryList, x) in getCategoryListFromStore"
-                        :key="CategoryList.id"
-                       >
+                        v-for="(orderList, x) in getOrderListFromStore"
+                        :key="orderList.id"
+                      >
                         <td>{{ x + 1 }}</td>
-                        <td>{{ CategoryList.category_name }}</td>
-                        <td>{{ CategoryList.category_description }}</td>
-                        <td> <img v-bind:src="`/images/category/${CategoryList.category_image}`" class="image" /></td>
-                        <!-- <img src="./assets/images/01.jpg" alt=""> -->
-
+                        <td>{{ orderList.customer_name }}</td>
+                        <td>{{ orderList.total }}</td>
+                        <td>{{ orderList.order_date }}</td>
+                        <td>{{ orderList.payment_status }}</td>
+                        <td>{{ orderList.payment_method }}</td>
                         <td>
-                          <div class="">
-                            <router-link :to="`/editCategory/${CategoryList.id}`" class="btn btn-info btn-xs" ><i class="fas fa-edit"></i ></router-link>
-                            <a @click.prevent="categoryDelete(CategoryList.id)" class="btn btn-info btn-xs" ><i class="fas fa-trash"></i></a>
+                          <span v-if="orderList.order_status == 'Approved'" class="badge badge-success">{{orderList.order_status}}</span>
+                          <span v-if="orderList.order_status == 'Pending'" class="badge badge-warning">{{orderList.order_status}}</span>
+                        </td>
+                        
+
+                        <td class="text-right py-0 align-middle">
+                          <div class="btn-group btn-group-sm">
+                            <router-link
+                              :to="`/orderDetails/${orderList.id}`"
+                              class="btn btn-info"
+                              >View</router-link>
+                            
                           </div>
                         </td>
                       </tr>
@@ -55,6 +60,7 @@
               </div>
             </div>
           </div>
+          
         </div>
         <!--/. container-fluid -->
       </section>
@@ -69,13 +75,13 @@ export default {
 
   //  Step: 4
   mounted() {
-    this.$store.dispatch("CategoryListSaveInStore");
+    this.$store.dispatch("OrderListSaveInStore");
   },
 
   //  Step: 10
   computed: {
-    getCategoryListFromStore() {
-      return this.$store.getters.categoryListFromStore;
+    getOrderListFromStore() {
+      return this.$store.getters.orderListFromStore;
     },
   },
 
@@ -92,7 +98,7 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           axios.get("/categoryDelete/" + id).then((response) => {
-            this.$store.dispatch("CategoryListSaveInStore");
+            this.$store.dispatch("OrderListSaveInStore");
             Swal.fire("Deleted!", "Category deleted successfully", "success");
           });
         }
