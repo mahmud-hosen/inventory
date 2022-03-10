@@ -98,8 +98,7 @@ export default {
   name: "Edit",
 
   created() {
-    axios
-      .get("/categoryById/" + this.$route.params.categoryId)
+    axios.get("/categoryById/" + this.$route.params.categoryId)
       .then((response) => {
         this.category_name = response.data.categoryById.category_name;
         this.category_description =

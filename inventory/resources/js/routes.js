@@ -33,7 +33,13 @@ import employeeAdd from './components/admin/Employee/employeeAdd.vue';
 import employeeEdit from './components/admin/Employee/employeeEdit.vue';
 import employeeList from './components/admin/Employee/employeeList.vue';
 
+// ___________________________ Salary Component ________________________________
+import salaryAdd from './components/admin/Salary/salaryAdd.vue';
+import salaryList from './components/admin/Salary/salaryList.vue';
+import salaryEdit from './components/admin/Salary/salaryEdit.vue';
 
+// ___________________________ Attendence Component ________________________________
+import attendenceList from './components/admin/attendence/attendenceList.vue';
 
 
           
@@ -104,11 +110,17 @@ export const routes = [
     //________________________________ Order Route ______________
     { path: '/orderList', component: orderList },
     { path: '/orderDetails/:orderId', component: orderDetails },
-    //________________________________ Employee Route ______________
+      //________________________________ Employee Route ______________
     { path: '/employeeAdd', component: employeeAdd },
     { path: '/employeeList', component: employeeList },
     { path: '/employeeEdit/:employeeId', component: employeeEdit },
-
+        //________________________________ Salary Route ______________
+    { path: '/salaryAdd', component: salaryAdd },
+    { path: '/salaryList', component: salaryList },
+    { path: '/salaryEdit/:salaryId', component: salaryEdit },
+   
+    //________________________________ Attd Route ______________
+    { path: '/attendenceList', component: attendenceList },
 
 
 

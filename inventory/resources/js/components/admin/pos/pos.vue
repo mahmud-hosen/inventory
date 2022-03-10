@@ -158,8 +158,7 @@
                 <!-- /.card-header -->
                 <div class="card-body">
                   <div class="input-group input-group-sm mb-1">
-                    <input  v-model="serachValue" name="serachValue" @keyup="serachProduct"  class="form-control form-control" type="search" placeholder="Search" aria-label="Search">
-                        
+                    <input  v-model="serachValue" name="serachValue" @keyup="serachProduct"  class="form-control form-control" type="search" placeholder="Search" aria-label="Search"> 
                   </div>
                   <table class="table table-bordered">
                     <thead>

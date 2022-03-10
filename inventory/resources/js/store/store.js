@@ -9,6 +9,7 @@ export default {
         customer: [],
         order: [],
         employee: [],
+        salary: [],
 
 
     },
@@ -33,6 +34,11 @@ export default {
         employeeListFromStore(state) {
             return state.employee
         },
+        salaryListFromStore(state) {
+            return state.salary
+        },
+
+
 
 
 
@@ -73,6 +79,12 @@ export default {
                 context.commit('AllEmployeeList', response.data.EmployeeList)
             })
         },
+        salaryListSaveInStore(context) {
+            Axios.get('/salaryList').then((response) => {
+                context.commit('AllSalaryList', response.data.salaryList)
+            })
+        },
+
 
 
 
@@ -98,6 +110,11 @@ export default {
         AllEmployeeList(state, responseData) {
             return state.employee = responseData
         },
+        AllSalaryList(state, responseData) {
+            return state.salary = responseData
+        },
+
+
 
 
 

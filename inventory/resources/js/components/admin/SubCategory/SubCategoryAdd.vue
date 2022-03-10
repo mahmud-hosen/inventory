@@ -26,7 +26,7 @@
                           <div class="containError" v-if="errors && errors.category_id">
                                 {{ errors.category_id[0] }}
                           </div>
-                    </div>
+                   </div>
 
                   <div class="form-group">
                     <label for="inputName">Sub Category Name</label>

@@ -95,13 +95,31 @@ Route::get('/orderDetails/{id}', 'OrderController@orderDetails')->name('order.or
 Route::get('/aprove_order/{id}', 'OrderController@aprove_order')->name('order.aprove_order');
 Route::get('/pending_order/{id}', 'OrderController@pending_order')->name('order.pending_order');
 Route::get('/delete_Order/{id}', 'OrderController@delete_Order')->name('order.delete_Order');
-//............................Customer Route ........................
 
+//............................Customer Route ........................
 Route::post('/employeeStore', 'EmployeeController@store')->name('employee.store');
 Route::get('/employeeList', 'EmployeeController@index')->name('employee.index');
 Route::get('/employeeById/{id}', 'EmployeeController@edit')->name('employee.edit');
 Route::post('/employeeUpdate/{id}', 'EmployeeController@update')->name('employee.update');
 Route::get('/employeeDelete/{id}', 'EmployeeController@destroy')->name('employee.delete');
+
+
+//............................Salary Route ........................
+Route::post('/employeeSalaryStore', 'SalaryController@store')->name('salary.store');
+ Route::get('/salaryList', 'SalaryController@index')->name('salary.index');
+Route::get('/salaryById/{id}', 'SalaryController@edit')->name('salary.edit');
+Route::post('/salaryUpdate/{id}', 'SalaryController@update')->name('salary.update');
+Route::get('/salaryDelete/{id}', 'SalaryController@destroy')->name('salary.delete');
+Route::get('/getSalaryBySearch/{value}', 'SalaryController@getSalaryBySearch')->name('salary.getSalaryBySearch');
+
+
+//............................Salary Route ........................
+Route::post('/attendenceStore', 'AttendenceController@store')->name('attendence.store');
+//  Route::get('/attendenceList', 'AttendenceController@index')->name('attendence.index');
+// Route::get('/attendenceById/{id}', 'AttendenceController@edit')->name('attendence.edit');
+// Route::post('/attendenceUpdate/{id}', 'AttendenceController@update')->name('attendence.update');
+// Route::get('/attendenceDelete/{id}', 'AttendenceController@destroy')->name('attendence.delete');
+// Route::get('/getAttendenceBySearch/{value}', 'AttendenceController@getAttendenceBySearch')->name('attendence.getAttendenceBySearch');
 
 
 

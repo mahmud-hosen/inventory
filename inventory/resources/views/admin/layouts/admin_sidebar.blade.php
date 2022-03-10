@@ -296,6 +296,48 @@
              
               </ul>
             </li>
+
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-list"></i>
+                <p>
+                    Salary Manage
+                  <i class="fas fa-angle-left right"></i>
+                  <span class="badge badge-info right">6</span>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+         
+                <li class="nav-item">
+                  <router-link to="/salaryList" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Salary List</p>
+                  </router-link>
+                </li>                
+             
+              </ul>
+            </li>
+
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-list"></i>
+                <p>
+                    Attendence Manage
+                  <i class="fas fa-angle-left right"></i>
+                  <span class="badge badge-info right">6</span>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+         
+                <li class="nav-item">
+                  <router-link to="/attendenceList" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Attendence List</p>
+                  </router-link>
+                </li>                
+             
+              </ul>
+            </li>
            
             <li class="nav-header">EXAMPLES</li>
             <li class="nav-item">
