@@ -115,11 +115,10 @@ Route::get('/getSalaryBySearch/{value}', 'SalaryController@getSalaryBySearch')->
 
 //............................Salary Route ........................
 Route::post('/attendenceStore', 'AttendenceController@store')->name('attendence.store');
-//  Route::get('/attendenceList', 'AttendenceController@index')->name('attendence.index');
-// Route::get('/attendenceById/{id}', 'AttendenceController@edit')->name('attendence.edit');
-// Route::post('/attendenceUpdate/{id}', 'AttendenceController@update')->name('attendence.update');
-// Route::get('/attendenceDelete/{id}', 'AttendenceController@destroy')->name('attendence.delete');
-// Route::get('/getAttendenceBySearch/{value}', 'AttendenceController@getAttendenceBySearch')->name('attendence.getAttendenceBySearch');
+Route::get('/todayAttendenceList', 'AttendenceController@index')->name('attendence.index');
+Route::get('/attendenceById/{id}', 'AttendenceController@edit')->name('attendence.edit');
+Route::post('/attendenceUpdate/{id}', 'AttendenceController@update')->name('attendence.update');
+Route::get('/getAttendenceBySearch/{value}', 'AttendenceController@getAttendenceBySearch')->name('attendence.getAttendenceBySearch');
 
 
 

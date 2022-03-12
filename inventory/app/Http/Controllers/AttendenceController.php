@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Attendence;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,14 @@ class AttendenceController extends Controller
      */
     public function index()
     {
-        //
+        $todayDate = date("Y-m-d");
+        $todayAttendenceList=DB::table('attendences')
+          ->join('employees','attendences.employee_id','employees.id')
+          ->select('employees.employee_name','employees.employee_image','attendences.*')
+          ->where('attendence_date',$todayDate)
+          ->get();
+        return response()->json(['todayAttendenceList'=>$todayAttendenceList],200);
+
     }
 
     /**
@@ -37,12 +45,25 @@ class AttendenceController extends Controller
     {
         $this->formValidation($request);
 
-        $attendence = new Attendence();
-        $attendence->employee_id = $request->employee_id;
-        $attendence->attendence_status = $request->attendence_status;
-        $attendence->attendence_date = $request->attendence_date;
-        $attendence->save();
-        return ['status'=>'Attendence Save Successfully'];   
+        $attd_record = DB::table('attendences')
+               ->where('employee_id',$request->employee_id)
+               ->Where('attendence_date',$request->attendence_date)
+               ->first();
+        if($attd_record != '')
+        {
+            return ['status'=>'Exist'];   
+
+        }
+        if($attd_record == ''){
+
+            $attendence = new Attendence();
+            $attendence->employee_id = $request->employee_id;
+            $attendence->attendence_status = $request->attendence_status;
+            $attendence->attendence_date = $request->attendence_date;
+            $attendence->save();
+           return ['status'=>'NotExist'];
+        }
+   
     }
 
     /**
@@ -62,9 +83,16 @@ class AttendenceController extends Controller
      * @param  \App\Attendence  $attendence
      * @return \Illuminate\Http\Response
      */
-    public function edit(Attendence $attendence)
+    public function edit( $id)
     {
-        //
+        $attendenceById=DB::table('attendences')
+          ->join('employees','attendences.employee_id','employees.id')
+          ->select('employees.employee_name','attendences.*')
+          ->where('attendences.id',$id)
+           ->first();
+
+        return response()->json(['attendenceById'=>$attendenceById],200);
+
     }
 
     /**
@@ -74,9 +102,20 @@ class AttendenceController extends Controller
      * @param  \App\Attendence  $attendence
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Attendence $attendence)
+     public function update(Request $request,Attendence $salary,$id)
     {
-        //
+          $this->validate($request,
+        [
+            'attendence_status' => 'required',
+            'attendence_date' => 'required',
+        ]);
+        
+        $attendence = Attendence::find($id);
+        $attendence->attendence_status = $request->attendence_status;
+        $attendence->attendence_date = $request->attendence_date;
+        $attendence->save();
+
+        return ['status'=>'Attendence Update Successfully'];    
     }
 
     /**
@@ -85,9 +124,20 @@ class AttendenceController extends Controller
      * @param  \App\Attendence  $attendence
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Attendence $attendence)
-    {
-        //
+   
+    
+    public function getAttendenceBySearch($value)
+    {   
+        $attendenceListBySearch=DB::table('attendences')
+          ->join('employees','attendences.employee_id','employees.id')
+          ->select('employees.employee_name','employees.employee_image','attendences.*')
+          ->where('attendences.employee_id','LIKE','%'.$value.'%')
+          ->orWhere('attendences.attendence_date','LIKE','%'.$value.'%')
+          ->get();
+
+
+        return response()->json(['attendenceListBySearch'=>$attendenceListBySearch],200);
+   
     }
      public function formValidation($request){
         $this->validate($request,

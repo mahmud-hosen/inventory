@@ -10,7 +10,7 @@
             <div class="col-md-7 mt-3">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Attendence List </h3>
+                  <h3 class="card-title">Take Attendance</h3>
                   <div class="text-right">
                     <router-link
                       to="/categoryAdd"
@@ -24,6 +24,9 @@
                   <div class="form-group">
                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
                         <input type="date" v-model="attendence_date" name="attendence_date" class="form-control " data-target="#reservationdate"/>
+                    </div>
+                    <div class="containError" v-if="errors && errors.attendence_date" >
+                      {{ errors.attendence_date[0] }}
                     </div>
                   </div>
 
@@ -90,19 +93,31 @@ export default {
   methods: {
     
     attendencePresent(employee_id, attendence_status) {
-      //console.log(employee_id, attendence_status,this.attendence_date);
-      let form = new FormData();
+     
+     let form = new FormData();
       form.append("employee_id",employee_id);
       form.append("attendence_status",attendence_status);
       form.append("attendence_date",this.attendence_date);
 
       axios.post("/attendenceStore", form).then((response) => {
-          this.$router.push("/attendenceList");
-          Toast.fire({
+          if(response.data.status == 'Exist')
+          {
+              Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Attendance already taken!",
+            });
+          }
+          else if(response.data.status == 'NotExist')
+          {
+            Toast.fire({
             icon: "success",
             title: "Attendence save successfully",
-          });
-          // console.log(response);
+            });
+          } else {
+
+           }
+          
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
@@ -110,23 +125,33 @@ export default {
    
    },
     attendenceAbsent(employee_id, attendence_status) {
-      console.log(employee_id, attendence_status,this.attendence_date);
       let form = new FormData();
       form.append("employee_id",employee_id);
       form.append("attendence_status",attendence_status);
       form.append("attendence_date",this.attendence_date);
 
       axios.post("/attendenceStore", form).then((response) => {
-          this.$router.push("/attendenceList");
-          Toast.fire({
+          if(response.data.status == 'Exist')
+          {
+              Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Attendance  already taken!",
+            });
+          }
+          else if(response.data.status == 'NotExist')
+          {
+            Toast.fire({
             icon: "success",
-            title: "Attendence save successfully",
-          });
-          // console.log(response);
+            title: "Attendance  save successfully",
+            });
+          } else {
+
+           }
+          
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
-          console.log(this.error);
         });
     },
     

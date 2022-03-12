@@ -41,10 +41,7 @@
                       class="form-control"
                       rows="4"
                     ></textarea>
-                    <div
-                      class="containError"
-                      v-if="errors && errors.category_description"
-                    >
+                    <div class="containError" v-if="errors && errors.category_description" >
                       {{ errors.category_description[0] }}
                     </div>
                   </div>

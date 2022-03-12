@@ -39,7 +39,14 @@ import salaryList from './components/admin/Salary/salaryList.vue';
 import salaryEdit from './components/admin/Salary/salaryEdit.vue';
 
 // ___________________________ Attendence Component ________________________________
-import attendenceList from './components/admin/attendence/attendenceList.vue';
+import takeAttendence from './components/admin/attendence/takeAttendence.vue';
+import viewAttendence from './components/admin/attendence/viewAttendence.vue';
+import editAttendence from './components/admin/attendence/editAttendence.vue';
+
+
+
+
+
 
 
           
@@ -120,7 +127,12 @@ export const routes = [
     { path: '/salaryEdit/:salaryId', component: salaryEdit },
    
     //________________________________ Attd Route ______________
-    { path: '/attendenceList', component: attendenceList },
+    { path: '/takeAttendence', component: takeAttendence },
+    { path: '/viewAttendence', component: viewAttendence },
+    { path: '/editAttendence/:attendenceId', component: editAttendence },
+
+    
+    
 
 
 

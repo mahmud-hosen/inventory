@@ -330,11 +330,17 @@
               <ul class="nav nav-treeview">
          
                 <li class="nav-item">
-                  <router-link to="/attendenceList" class="nav-link">
+                  <router-link to="/takeAttendence" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Attendence List</p>
+                    <p>Take Attendence</p>
                   </router-link>
-                </li>                
+                </li> 
+                <li class="nav-item">
+                  <router-link to="/viewAttendence" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>View Attendence</p>
+                  </router-link>
+                </li>               
              
               </ul>
             </li>

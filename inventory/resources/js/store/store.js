@@ -84,6 +84,8 @@ export default {
                 context.commit('AllSalaryList', response.data.salaryList)
             })
         },
+       
+        
 
 
 
