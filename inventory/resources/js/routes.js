@@ -1,4 +1,4 @@
-//import dashboard from './components/admin/dashboard/index.vue';
+import dashboard from './components/admin/dashboard/index.vue';
 // ___________________________ Category Component ________________________________
 import categoryList from './components/admin/category/categoryList.vue';
 import categoryAdd from './components/admin/category/categoryAdd.vue';
@@ -43,19 +43,15 @@ import takeAttendence from './components/admin/attendence/takeAttendence.vue';
 import viewAttendence from './components/admin/attendence/viewAttendence.vue';
 import editAttendence from './components/admin/attendence/editAttendence.vue';
 
-
-
-
-
-
-
-          
-
-
-
+// ___________________________ Attendence Component ________________________________
+import stockAdd from './components/admin/stock/stockAdd.vue';
+import stockList from './components/admin/stock/stockList.vue';
+import stockEdit from './components/admin/stock/stockEdit.vue';
 
 
 export const routes = [
+    { path: '/', component: dashboard },
+
 
     {
         path: '/categoryList',
@@ -117,25 +113,30 @@ export const routes = [
     //________________________________ Order Route ______________
     { path: '/orderList', component: orderList },
     { path: '/orderDetails/:orderId', component: orderDetails },
-      //________________________________ Employee Route ______________
+    //________________________________ Employee Route ______________
     { path: '/employeeAdd', component: employeeAdd },
     { path: '/employeeList', component: employeeList },
     { path: '/employeeEdit/:employeeId', component: employeeEdit },
-        //________________________________ Salary Route ______________
+    //________________________________ Salary Route ______________
     { path: '/salaryAdd', component: salaryAdd },
     { path: '/salaryList', component: salaryList },
     { path: '/salaryEdit/:salaryId', component: salaryEdit },
-   
+
     //________________________________ Attd Route ______________
     { path: '/takeAttendence', component: takeAttendence },
     { path: '/viewAttendence', component: viewAttendence },
     { path: '/editAttendence/:attendenceId', component: editAttendence },
 
-    
-    
+    //________________________________ Attd Route ______________
+    { path: '/stockAdd', component: stockAdd },
+    { path: '/stockList', component: stockList },
+    { path: '/stockEdit/:stockId', component: stockEdit },
 
 
 
-    
+
+
+
+
 
 ]

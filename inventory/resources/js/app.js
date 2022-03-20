@@ -12,10 +12,13 @@ Vue.use(VueRouter)
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
+//Google Charts Support
+import VueGoogleCharts from 'vue-google-charts'
+Vue.use(VueGoogleCharts)
+
 import storeInfo from './store/store.js';
 const store = new Vuex.Store(
     storeInfo
-
 )
 
 
@@ -35,7 +38,7 @@ const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
-    timer: 3000,
+    timer: 4000,
     timerProgressBar: true,
     didOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -48,7 +51,8 @@ window.Toast = Toast; // It is use for globally
 
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('admin-master', require('./components/admin/adminmaster.vue').default);
+Vue.component('category-content', require('./components/admin/dashboard/category_wise_content.vue').default);
+
 
 const app = new Vue({
     el: '#app',

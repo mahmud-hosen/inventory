@@ -120,6 +120,12 @@ Route::get('/attendenceById/{id}', 'AttendenceController@edit')->name('attendenc
 Route::post('/attendenceUpdate/{id}', 'AttendenceController@update')->name('attendence.update');
 Route::get('/getAttendenceBySearch/{value}', 'AttendenceController@getAttendenceBySearch')->name('attendence.getAttendenceBySearch');
 
+//............................Stock Route ........................
+Route::post('/stockStore', 'StockController@store')->name('stock.store');
+Route::get('/stockList', 'StockController@index')->name('stock.index');
+Route::get('/stockById/{id}', 'StockController@edit')->name('stock.edit');
+Route::post('/stockUpdate/{id}', 'StockController@update')->name('stock.update');
+
 
 
 

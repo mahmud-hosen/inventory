@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "sweetalert2": "^11.3.10",
+        "vue-google-charts": "^0.3.3",
         "vue-router": "^3.5.3",
         "vuex": "^3.6.2"
     }
