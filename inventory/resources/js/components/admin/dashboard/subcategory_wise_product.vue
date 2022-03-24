@@ -12,7 +12,7 @@ export default {
       result: [],
 
       // Array will be automatically processed with visualization.arrayToDataTable function
-      chartData: [["SubCategory", "Content"]],
+      chartData: [["SubCategory", "Product"]],
       chartOptions: {
         chart: {
           title: "Company Performance",
@@ -23,15 +23,17 @@ export default {
   },
 
   mounted() {
-    axios.get("/categoryWiseSubCategory").then((response) => {
-      for (let i = 0; i < response.data.categoryWiseSubCategory.length; i++) {
-        this.result[0] = response.data.categoryWiseSubCategory[i].sub_cat_name;
-        this.result[1] = response.data.categoryWiseSubCategory[i].total;
+    axios.get("/subcategoryWiseProduct").then((response) => {
+
+      for (let i = 0; i < response.data.subcategoryWiseProduct.length; i++) {
+        this.result[0] = response.data.subcategoryWiseProduct[i].sub_category_name;
+        this.result[1] = response.data.subcategoryWiseProduct[i].total;
         this.chartData.push(this.result);
         this.result = [];
       }
     });
-  },
+ 
+ },
 };
 </script>
 

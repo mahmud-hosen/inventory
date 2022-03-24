@@ -181,9 +181,7 @@ export default {
       form.append("sub_category_description", this.sub_category_description);
       form.append("sub_category_img", this.sub_category_img);
 
-      axios
-        .post(`/SubCategoryUpdate/${this.$route.params.SubCategoryId}`, form)
-
+      axios.post(`/SubCategoryUpdate/${this.$route.params.SubCategoryId}`, form)
         .then((response) => {
           this.$router.push("/SubCategoryList");
           Toast.fire({
@@ -194,7 +192,6 @@ export default {
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
-          console.log(this.error);
         });
     },
 

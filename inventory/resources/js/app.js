@@ -51,7 +51,7 @@ window.Toast = Toast; // It is use for globally
 
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('category-content', require('./components/admin/dashboard/category_wise_content.vue').default);
+Vue.component('subcategory-product', require('./components/admin/dashboard/subcategory_wise_product.vue').default);
 
 
 const app = new Vue({

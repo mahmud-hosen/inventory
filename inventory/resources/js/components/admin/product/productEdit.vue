@@ -7,7 +7,7 @@
           <div class="col-md-8 mt-2">
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title mt-1">Product Update</h3>
+                <h3 class="card-title mt-1"> Product Update</h3>
               </div>
               <form
                 role="form"
@@ -73,7 +73,7 @@
                     </div>
                   </div>
 
-                   <div class="row">
+                  <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="inputName">Product Name</label>
@@ -167,9 +167,7 @@
                       {{ errors.product_description[0] }}
                     </div>
                   </div>
-                  
 
-                  
                   <div class="row">
                     <div class="col-md-12">
                       <fieldset class="form-group">
@@ -185,7 +183,10 @@
                               id="product_status"
                               value="1"
                             />
-                            <label class="form-check-label" for="product_status">
+                            <label
+                              class="form-check-label"
+                              for="product_status"
+                            >
                               Published
                             </label>
                           </div>
@@ -199,7 +200,10 @@
                               id="product_status"
                               value="0"
                             />
-                            <label class="form-check-label" for="product_status">
+                            <label
+                              class="form-check-label"
+                              for="product_status"
+                            >
                               Unpublished
                             </label>
                           </div>
@@ -267,16 +271,18 @@ export default {
       this.SubCategoryList = response.data.SubCategoryList;
     });
 
-    axios
-      .get("/productById/" + this.$route.params.productId)
+    axios.get("/productById/" + this.$route.params.productId)
       .then((response) => {
         this.category_id = response.data.productById.category_id;
         this.sub_category_id = response.data.productById.sub_category_id;
         this.product_name = response.data.productById.product_name;
-        this.product_description = response.data.productById.product_description;
+        this.product_description =
+          response.data.productById.product_description;
         this.product_code = response.data.productById.product_code;
-        this.product_buying_price = response.data.productById.product_buying_price;
-        this.product_selling_price = response.data.productById.product_selling_price;
+        this.product_buying_price =
+          response.data.productById.product_buying_price;
+        this.product_selling_price =
+          response.data.productById.product_selling_price;
         this.product_status = response.data.productById.product_status;
         this.product_image = response.data.productById.product_image;
       });
@@ -334,7 +340,7 @@ export default {
 
     productUpdate() {
       let form = new FormData();
-    
+
       form.append("category_id", this.category_id);
       form.append("sub_category_id", this.sub_category_id);
       form.append("product_name", this.product_name);

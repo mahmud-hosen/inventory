@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Stock;
+use DB;
+
 use Illuminate\Http\Request;
 
 class StockController extends Controller
@@ -12,9 +14,17 @@ class StockController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+
+         $storeProducts=DB::table('stocks')
+          ->join('products','stocks.product_id','products.id')
+          ->select('products.product_name','stocks.*')
+          ->where('products.id',$id)
+          ->get();
+        return response()->json(['storeProducts'=>$storeProducts],200);
+
+   
     }
 
     /**
@@ -22,10 +32,7 @@ class StockController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+   
 
     /**
      * Store a newly created resource in storage.
@@ -54,49 +61,34 @@ class StockController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Stock  $stock
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Stock $stock)
+    public function edit($id)
     {
-        //
+         $StockById = Stock::find($id);
+        return response()->json(['StockById'=>$StockById],200);
+    }
+     public function update(Request $request, Stock $stock,$id)
+    {
+         $this->formValidation($request);
+
+        $stock = Stock::find($id);
+
+        $stock->product_id = $request->product_id;
+        $stock->company_name = $request->company_name;
+        $stock->product_quantity = $request->product_quantity;
+        $stock->product_unit_cost = $request->product_unit_cost;
+        $stock->product_total_price = $request->product_total_price;
+        $stock->paid = $request->paid;
+        $stock->due = $request->due;
+        $stock->stock_date = $request->stock_date;
+        $stock->save();
+        return ['status'=>'Success'];  
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Stock  $stock
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Stock $stock)
+   
+    public function destroy( $id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Stock  $stock
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Stock $stock)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Stock  $stock
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Stock $stock)
-    {
-        //
+        Stock::destroy($id);
+        return ['status'=>'success'];
     }
      public function formValidation($request){
         $this->validate($request,

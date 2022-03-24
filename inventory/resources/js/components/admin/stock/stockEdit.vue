@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <div class="content-wrapper">
@@ -7,11 +8,11 @@
           <div class="col-md-8 mt-2">
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title mt-1">Product Update</h3>
+                <h3 class="card-title mt-1">Stock Edit</h3>
               </div>
               <form
                 role="form"
-                @submit.prevent="productUpdate"
+                @submit.prevent="StockUpdate"
                 enctype="multipart/form-data"
               >
                 <div class="card-body">
@@ -37,9 +38,9 @@
                         </select>
                         <div
                           class="containError"
-                          v-if="errors && errors.category_name"
+                          v-if="errors && errors.category_id"
                         >
-                          {{ errors.category_name[0] }}
+                          {{ errors.category_id[0] }}
                         </div>
                       </div>
                     </div>
@@ -54,10 +55,11 @@
                           class="form-control"
                           id="exampleInputEmail1"
                           name="category_id"
+                          @change="getProduct"
                         >
                           <option
                             :value="subCategory.id"
-                            v-for="subCategory in SubCategoryList"
+                            v-for="subCategory in subCategoryList"
                             :key="subCategory.id"
                           >
                             {{ subCategory.sub_category_name }}
@@ -73,161 +75,149 @@
                     </div>
                   </div>
 
-                   <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="inputName">Product Name</label>
-                        <input
-                          type="text"
-                          v-model="product_name"
-                          id="product_name"
-                          name="product_name"
-                          class="form-control"
-                        />
-                        <div
-                          class="containError"
-                          v-if="errors && errors.product_name"
-                        >
-                          {{ errors.product_name[0] }}
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="inputName">Product Code</label>
-                        <input
-                          type="text"
-                          v-model="product_code"
-                          id="product_code"
-                          name="product_code"
-                          class="form-control"
-                        />
-                        <div
-                          class="containError"
-                          v-if="errors && errors.product_code"
-                        >
-                          {{ errors.product_code[0] }}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="inputName">Product Buying Price</label>
-                        <input
+                        <label for="exampleInputEmail1">Select Product</label>
+                        <select
                           type="text"
-                          v-model="product_buying_price"
-                          id="product_buying_price"
-                          name="product_buying_price"
+                          v-model="product_id"
                           class="form-control"
-                        />
+                          id="exampleInputEmail1"
+                          name="product_id"
+                        >
+                          <option
+                            :value="product.id"
+                            v-for="product in productList"
+                            :key="product.id"
+                          >
+                            {{ product.product_name }}
+                          </option>
+                        </select>
                         <div
                           class="containError"
-                          v-if="errors && errors.product_buying_price"
+                          v-if="errors && errors.product_id"
                         >
-                          {{ errors.product_buying_price[0] }}
+                          {{ errors.product_id[0] }}
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="inputName">Product Selling Price</label>
+                        <label for="inputName">Company Name</label>
                         <input
                           type="text"
-                          v-model="product_selling_price"
-                          id="product_selling_price"
-                          name="product_selling_price"
+                          v-model="company_name"
+                          id="company_name"
+                          name="company_name"
                           class="form-control"
                         />
                         <div
                           class="containError"
-                          v-if="errors && errors.product_selling_price"
+                          v-if="errors && errors.company_name"
                         >
-                          {{ errors.product_selling_price[0] }}
+                          {{ errors.company_name[0] }}
                         </div>
                       </div>
                     </div>
                   </div>
-
-                  <div class="form-group">
-                    <label for="inputDescription">Description</label>
-                    <textarea
-                      id="product_description"
-                      v-model="product_description"
-                      name="product_description"
-                      class="form-control"
-                      rows="4"
-                    ></textarea>
-                    <div
-                      class="containError"
-                      v-if="errors && errors.product_description"
-                    >
-                      {{ errors.product_description[0] }}
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="inputName">Quantity</label>
+                        <input type="text" v-model="product_quantity" @keyup="productCost" id="product_quantity" name="product_quantity" class="form-control" />
+                        <div  class="containError"  v-if="errors && errors.product_quantity" >
+                          {{ errors.product_quantity[0] }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="inputName">Unit Cost</label>
+                        <input
+                          type="text"
+                          v-model="product_unit_cost" @keyup="productCost"
+                          id="product_unit_cost"
+                          name="product_unit_cost"
+                          class="form-control"
+                        />
+                        <div
+                          class="containError"
+                          v-if="errors && errors.product_unit_cost"
+                        >
+                          {{ errors.product_unit_cost[0] }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="inputName">Total</label>
+                        <input
+                          type="text"
+                          v-model="product_total_price"
+                          id="product_total_price"
+                          name="product_total_price"
+                          class="form-control"
+                        />
+                        <div
+                          class="containError"
+                          v-if="errors && errors.product_total_price"
+                        >
+                          {{ errors.product_total_price[0] }}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  
-
-                  
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="inputName">Paid</label>
+                        <input
+                          type="text"
+                          v-model="paid" @keyup="paidAmount"
+                          id="paid"
+                          name="paid"
+                          class="form-control"
+                        />
+                        <div class="containError" v-if="errors && errors.paid">
+                          {{ errors.paid[0] }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="inputName">Due</label>
+                        <input
+                          type="text"
+                          v-model="due"
+                          id="due"
+                          name="due"
+                          class="form-control"
+                        />
+                        <div class="containError" v-if="errors && errors.due">
+                          {{ errors.due[0] }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <fieldset class="form-group">
-                        <label for="inputDescription">Publication Status</label>
-
-                        <div class="ml-2">
-                          <div class="form-check">
-                            <input
-                              class="form-check-input"
-                              v-model="product_status"
-                              type="radio"
-                              name="product_status"
-                              id="product_status"
-                              value="1"
-                            />
-                            <label class="form-check-label" for="product_status">
-                              Published
-                            </label>
-                          </div>
-
-                          <div class="form-check">
-                            <input
-                              class="form-check-input"
-                              v-model="product_status"
-                              type="radio"
-                              name="product_status"
-                              id="product_status"
-                              value="0"
-                            />
-                            <label class="form-check-label" for="product_status">
-                              Unpublished
-                            </label>
-                          </div>
-                        </div>
+                      <div class="form-group">
+                        <label for="inputName">Stock Date</label>
+                        <input
+                          type="date"
+                          v-model="stock_date"
+                          id="stock_date"
+                          name="stock_date"
+                          class="form-control"
+                        />
                         <div
                           class="containError"
-                          v-if="errors && errors.product_status"
+                          v-if="errors && errors.stock_date"
                         >
-                          {{ errors.product_status[0] }}
+                          {{ errors.stock_date[0] }}
                         </div>
-                      </fieldset>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="inputProjectLeader">Product Image</label>
-                    <input
-                      type="file"
-                      id="product_image"
-                      name="product_image"
-                      @change="getImg"
-                      class="form-control"
-                    />
-                    <div
-                      class="containError"
-                      v-if="errors && errors.product_image"
-                    >
-                      {{ errors.product_image[0] }}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -244,7 +234,6 @@
                   </button>
                 </div>
               </form>
-
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
@@ -258,100 +247,95 @@
 
 <script>
 export default {
-  //  Step: 4
+   created() {
+    
+    axios.get("/StockEdit/" + this.$route.params.stockId)
+      .then((response) => {
+        this.product_id = response.data.StockById.product_id;
+        this.company_name = response.data.StockById.company_name;
+        this.product_quantity = response.data.StockById.product_quantity;
+        this.product_unit_cost = response.data.StockById.product_unit_cost;
+        this.product_total_price = response.data.StockById.product_total_price;
+        this.paid = response.data.StockById.paid;
+        this.due = response.data.StockById.due;
+        this.stock_date = response.data.StockById.stock_date;
+
+       
+      });
+  },
   mounted() {
     this.$store.dispatch("CategoryListSaveInStore");
   },
-  created() {
-    axios.get("/SubCategoryList").then((response) => {
-      this.SubCategoryList = response.data.SubCategoryList;
-    });
 
-    axios
-      .get("/productById/" + this.$route.params.productId)
-      .then((response) => {
-        this.category_id = response.data.productById.category_id;
-        this.sub_category_id = response.data.productById.sub_category_id;
-        this.product_name = response.data.productById.product_name;
-        this.product_description = response.data.productById.product_description;
-        this.product_code = response.data.productById.product_code;
-        this.product_buying_price = response.data.productById.product_buying_price;
-        this.product_selling_price = response.data.productById.product_selling_price;
-        this.product_status = response.data.productById.product_status;
-        this.product_image = response.data.productById.product_image;
-      });
-  },
-
-  //  Step: 10
   computed: {
     getCategoryListFromStore() {
       return this.$store.getters.categoryListFromStore;
     },
   },
+
   data() {
     return {
-      SubCategoryList: [],
-
+      subCategoryList: [],
+      productList: [],
       category_id: "",
       sub_category_id: "",
-      product_name: "",
-      product_description: "",
-      product_code: "",
-      product_buying_price: "",
-      product_selling_price: "",
-      product_image: "",
-      product_status: "",
+
+      product_id: "",
+      company_name: "",
+
+      product_quantity: "",
+      product_unit_cost: "",
+      product_total_price: "",
+
+      paid: "",
+      due: "",
+
+      stock_date: "",
       errors: {},
     };
   },
 
   methods: {
+    productCost()
+    {
+      this.product_total_price = this.product_quantity * this.product_unit_cost;
+
+    },
+    paidAmount()
+    {
+      this.due = this.product_total_price - this.paid;
+    },
+
     getSubCategory() {
-      axios
-        .get("/getSubcategoryByCategoryId/" + this.category_id)
+      axios.get("/getSubcategoryByCategoryId/" + this.category_id)
         .then((response) => {
-          this.SubCategoryList = response.data.subCategoryListById;
+          this.subCategoryList = response.data.subCategoryListById;
         });
     },
 
-    getImg(e) {
-      this.product_image = e.target.files[0];
-      if (this.product_image.size > 2097152) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "File is larger than 2MB!",
+    getProduct() {
+      axios.get("/getProductBySubCategoryId/" + this.sub_category_id)
+        .then((response) => {
+          this.productList = response.data.productListBySubCategoryId;
         });
-      } else if (!e.target.files[0].name.match(/.(jpg|jpeg|png|gif)$/i)) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Image extension is not support. Allow Extension is jpeg, jpg, png and gif",
-        });
-      } else {
-      }
     },
-
-    productUpdate() {
+    StockUpdate() {
       let form = new FormData();
-    
-      form.append("category_id", this.category_id);
-      form.append("sub_category_id", this.sub_category_id);
-      form.append("product_name", this.product_name);
-      form.append("product_description", this.product_description);
-      form.append("product_code", this.product_code);
-      form.append("product_buying_price", this.product_buying_price);
-      form.append("product_selling_price", this.product_selling_price);
-      form.append("product_image", this.product_image);
-      form.append("product_status", this.product_status);
+      form.append("product_id", this.product_id);
+      form.append("company_name", this.company_name);
+      form.append("product_quantity", this.product_quantity);
+      form.append("product_unit_cost", this.product_unit_cost);
+      form.append("product_total_price", this.product_total_price);
+      form.append("paid", this.paid);
+      form.append("due", this.due);
+      form.append("stock_date", this.stock_date);
 
-      axios
-        .post(`/productUpdate/${this.$route.params.productId}`, form)
+      axios.post(`/stockUpdate/${this.$route.params.stockId}`, form)
         .then((response) => {
-          this.$router.push("/productList");
+          this.$router.push("/stockList");
           Toast.fire({
             icon: "success",
-            title: "Product update successfully",
+            title: "Stock update successfully",
           });
           // console.log(response);
         })

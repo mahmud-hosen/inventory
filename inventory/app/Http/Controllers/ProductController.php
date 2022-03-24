@@ -177,6 +177,18 @@ class ProductController extends Controller
         return response()->json(['productListBySearch'=>$productListBySearch],200);
    
     }
+     public function subcategoryWiseProduct()
+    {   // dd($value);
+         $subcategoryWiseProduct = DB::table('products')
+           ->join('sub_categories','products.sub_category_id','=','sub_categories.id')
+           ->select('sub_categories.sub_category_name', DB::raw('COUNT(products.id) as total'))
+           ->where('products.deleted_at', NULL)
+           ->groupBy('products.sub_category_id')
+           ->get();
+        return response()->json(['subcategoryWiseProduct'=>$subcategoryWiseProduct],200);
+    }
+
+    
 
      public function formValidation($request){
         $this->validate($request,

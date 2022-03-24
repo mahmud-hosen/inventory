@@ -18,68 +18,95 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+                  
+                   <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Select Category</label>
+                        <select  type="text"  v-model="category_id"  class="form-control"  id="exampleInputEmail1"  name="category_id"  @change="getSubCategory"  >
+                          <option  :value="category.id" v-for="category in getCategoryListFromStore"  :key="category.id"  >
+                            {{ category.category_name }}
+                          </option>
+                        </select>
+                        <div  class="containError"  v-if="errors && errors.category_id"  >
+                          {{ errors.category_id[0] }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1" >Select Sub Category</label >
+                        <select type="text" v-model="sub_category_id" class="form-control" id="exampleInputEmail1" name="category_id" @change="getProduct" >
+                          <option  :value="subCategory.id"  v-for="subCategory in subCategoryList"  :key="subCategory.id"  >
+                            {{ subCategory.sub_category_name }}
+                          </option>
+                        </select>
+                        <div  class="containError"  v-if="errors && errors.sub_category_id" >
+                          {{ errors.sub_category_id[0] }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group"> <label for="exampleInputEmail1">Select Product</label>
+                        <select  type="text"  v-model="product_id" @change="StockProducts"  class="form-control"  id="exampleInputEmail1"  name="product_id"  >
+                          <option :value="product.id"  v-for="product in productList"  :key="product.id" >
+                            {{ product.product_name }}
+                          </option>
+                        </select>
+                        <div class="containError" v-if="errors && errors.product_id" >
+                          {{ errors.product_id[0] }}
+                        </div>
+                      </div>
+                    </div>
+                 
+                  </div>
+
                   <table class="table table-bordered">
                     <thead>
                       <tr>
                         <th style="width: 10px">#</th>
                         <th>Product Name</th>
-                        <th>Category Name</th>
-                        <th>Sub Category Name</th>
-                        <th>Code</th>
-                        <th>Buying Price</th>
-                        <th>Selling Price</th>
-                        <th>Description</th>
-                        <th>Image</th>
-                        <th>Status</th>
+                        <th>Company Name</th>
+                        <th>Quantity</th>
+                        <th>Unit Cost</th>
+                        <th>Total</th>
+                        <th>Paid</th>
+                        <th>Due</th>
+                        <th>Stock Date</th>
+
+                        
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(productList, x) in getProductListFromStore" :key="productList.id" >
+                      <tr v-for="(productList, x) in StockProductList" :key="productList.id" >
                         <td>{{ x + 1 }}</td>
                         <td>{{ productList.product_name }}</td>
-                        <td>{{ productList.categories.category_name }}</td>
-                        <td>{{ productList.sub_categories.sub_category_name }}</td>
-                        <td>{{ productList.product_code }}</td>
-                        <td>{{ productList.product_buying_price }}</td>
-                        <td>{{ productList.product_selling_price }}</td>
-                        <td>{{ productList.product_description }}</td>
+                        <td>{{ productList.company_name }}</td>
+                        <td>{{ productList.product_quantity }}</td>
+                        <td>{{ productList.product_unit_cost }}</td>
+                        <td>{{ productList.product_total_price }}</td>
+                        <td>{{ productList.paid }}</td>
+                        <td>{{ productList.due }}</td>
+                        <td>{{ productList.stock_date }}</td>
 
-
-                        <td>
-                          <img
-                            v-bind:src="`/images/product/${productList.product_image}`"
-                            class="image"
-                          />
-                        </td>
-                        <td>
-                          <span
-                            v-if="productList.product_status == 1"
-                            class="badge badge-info right"
-                            >Published</span
-                          >
-                          <span
-                            v-if="productList.product_status == 0"
-                            class="badge badge-danger right"
-                            >Unpublished</span
-                          >
-                        </td>
 
                         <td class="text-right py-0 align-middle">
                           <div class="btn-group btn-group-sm">
                             <router-link
-                              :to="`/productEdit/${productList.id}`"
+                              :to="`/StockEdit/${productList.id}`"
                               class="btn btn-info"
                               ><i class="fas fa-edit"></i
                             ></router-link>
                             <a
-                              @click.prevent="productDelete(productList.id)"
+                              @click.prevent="storeDelete(productList.id)"
                               class="btn btn-danger"
                               ><i class="fas fa-trash"></i
                             ></a>
                           </div>
                         </td>
                       </tr>
+                      
                     </tbody>
                   </table>
                 </div>
@@ -98,23 +125,54 @@
 export default {
   name: "List",
 
-  //  Step: 4
   mounted() {
-    this.$store.dispatch("productListSaveInStore");
+    this.$store.dispatch("CategoryListSaveInStore");
   },
 
-  //  Step: 10
   computed: {
-    getProductListFromStore() {
-      return this.$store.getters.productListFromStore;
+    getCategoryListFromStore() {
+      return this.$store.getters.categoryListFromStore;
     },
+  },
+  data() {
+    return {
+      subCategoryList: [],
+      productList: [],
+      StockProductList:[],
+      category_id: "",
+      sub_category_id: "",
+      product_id: "",     
+
+      errors: {},
+    };
   },
 
   methods: {
-    productDelete(id) {
+    getSubCategory() {
+      axios.get("/getSubcategoryByCategoryId/" + this.category_id)
+        .then((response) => {
+          this.subCategoryList = response.data.subCategoryListById;
+        });
+    },
+
+    getProduct() {
+      axios.get("/getProductBySubCategoryId/" + this.sub_category_id)
+        .then((response) => {
+          this.productList = response.data.productListBySubCategoryId;
+          console.log(this.productList);
+        });
+    },
+    
+    StockProducts() {
+      axios.get("/getStoreProduct/" + this.product_id).then((response) => {
+          this.StockProductList = response.data.storeProducts;
+        });
+    },
+
+    storeDelete(id) {
       Swal.fire({
         title: "Are you sure?",
-        text: "You want to delete this product!",
+        text: "You want to delete this stock!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -122,9 +180,9 @@ export default {
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.get("/productDelete/" + id).then((response) => {
-            this.$store.dispatch("productListSaveInStore");
-            Swal.fire("Deleted!", "Product deleted successfully", "success");
+          axios.get("/stocktDelete/" + id).then((response) => {
+            // this.$store.dispatch("productListSaveInStore");
+            Swal.fire("Deleted!", "Stock deleted successfully", "success");
           });
         }
       });

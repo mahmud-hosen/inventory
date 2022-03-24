@@ -99,7 +99,7 @@
             <div class="col-md-6">
               <div class="card">
                 <div class="card-header">
-                  <h5 class="card-title">Category wise Content</h5>
+                  <h5 class="card-title">SubCategory wise Product</h5>
 
                   <div class="card-tools">
                     <button
@@ -144,7 +144,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <!-- Sales Chart Canvas -->
-                      <category-content></category-content>
+                      <subcategory-product></subcategory-product>
 
                       <!-- /.chart-responsive -->
                     </div>

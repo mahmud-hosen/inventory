@@ -125,17 +125,8 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label for="inputName">Quantity</label>
-                        <input
-                          type="text"
-                          v-model="product_quantity"
-                          id="product_quantity"
-                          name="product_quantity"
-                          class="form-control"
-                        />
-                        <div
-                          class="containError"
-                          v-if="errors && errors.product_quantity"
-                        >
+                        <input type="text" v-model="product_quantity" @keyup="productCost" id="product_quantity" name="product_quantity" class="form-control" />
+                        <div  class="containError"  v-if="errors && errors.product_quantity" >
                           {{ errors.product_quantity[0] }}
                         </div>
                       </div>
@@ -145,7 +136,7 @@
                         <label for="inputName">Unit Cost</label>
                         <input
                           type="text"
-                          v-model="product_unit_cost"
+                          v-model="product_unit_cost" @keyup="productCost"
                           id="product_unit_cost"
                           name="product_unit_cost"
                           class="form-control"
@@ -183,7 +174,7 @@
                         <label for="inputName">Paid</label>
                         <input
                           type="text"
-                          v-model="paid"
+                          v-model="paid" @keyup="paidAmount"
                           id="paid"
                           name="paid"
                           class="form-control"
@@ -256,12 +247,10 @@
 
 <script>
 export default {
-  //  Step: 4
   mounted() {
     this.$store.dispatch("CategoryListSaveInStore");
   },
 
-  //  Step: 10
   computed: {
     getCategoryListFromStore() {
       return this.$store.getters.categoryListFromStore;
@@ -291,20 +280,27 @@ export default {
   },
 
   methods: {
+    productCost()
+    {
+      this.product_total_price = this.product_quantity * this.product_unit_cost;
+
+    },
+    paidAmount()
+    {
+      this.due = this.product_total_price - this.paid;
+    },
+
     getSubCategory() {
-      axios
-        .get("/getSubcategoryByCategoryId/" + this.category_id)
+      axios.get("/getSubcategoryByCategoryId/" + this.category_id)
         .then((response) => {
           this.subCategoryList = response.data.subCategoryListById;
         });
     },
 
     getProduct() {
-      axios
-        .get("/getProductBySubCategoryId/" + this.sub_category_id)
+      axios.get("/getProductBySubCategoryId/" + this.sub_category_id)
         .then((response) => {
           this.productList = response.data.productListBySubCategoryId;
-          console.log(this.productList);
         });
     },
 

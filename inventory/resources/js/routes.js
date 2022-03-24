@@ -130,7 +130,7 @@ export const routes = [
     //________________________________ Attd Route ______________
     { path: '/stockAdd', component: stockAdd },
     { path: '/stockList', component: stockList },
-    { path: '/stockEdit/:stockId', component: stockEdit },
+    { path: '/StockEdit/:stockId', component: stockEdit },
 
 
 

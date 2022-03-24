@@ -51,6 +51,8 @@ Route::get('/SubCategoryDelete/{id}', 'SubCategoryController@destroy')->name('Su
 Route::get('/getSubcategoryByCategoryId/{id}', 'ProductController@getSubcategoryByCategoryId')->name('product.getSubcategoryByCategoryId');
 Route::get('/getProductBySubCategoryId/{id}', 'ProductController@getProductBySubCategoryId')->name('product.getProductBySubCategoryId');
 Route::get('/getProductBySearch/{value}', 'ProductController@getProductBySearch')->name('product.getProductBySearch');
+Route::get('/subcategoryWiseProduct', 'ProductController@subcategoryWiseProduct')->name('product.subcategoryWiseProduct');
+
 
 
 //Route for category
@@ -122,9 +124,13 @@ Route::get('/getAttendenceBySearch/{value}', 'AttendenceController@getAttendence
 
 //............................Stock Route ........................
 Route::post('/stockStore', 'StockController@store')->name('stock.store');
-Route::get('/stockList', 'StockController@index')->name('stock.index');
-Route::get('/stockById/{id}', 'StockController@edit')->name('stock.edit');
+Route::get('/getStoreProduct/{id}', 'StockController@index')->name('stock.index');
+Route::get('/StockEdit/{id}', 'StockController@edit')->name('stock.edit');
 Route::post('/stockUpdate/{id}', 'StockController@update')->name('stock.update');
+Route::get('/stocktDelete/{id}', 'StockController@destroy')->name('stock.delete');
+
+
+
 
 
 
