@@ -44,17 +44,8 @@
 
                   <div class="form-group">
                     <label for="inputDescription">Sub Category Description</label>
-                    <textarea
-                      id="sub_category_description"
-                      v-model="sub_category_description"
-                      name="sub_category_description"
-                      class="form-control"
-                      rows="4"
-                    ></textarea>
-                    <div
-                      class="containError"
-                      v-if="errors && errors.sub_category_description"
-                    >
+                    <textarea  id="sub_category_description"  v-model="sub_category_description"  name="sub_category_description"  class="form-control"  rows="4"  ></textarea>
+                    <div class="containError" v-if="errors && errors.sub_category_description" >
                       {{ errors.sub_category_description[0] }}
                     </div>
                   </div>

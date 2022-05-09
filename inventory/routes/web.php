@@ -15,36 +15,21 @@ Route::get('/', 'HomeController@index')->name('home');
 
 //Route for category
 Route::post('/categoryStore', 'CategoryController@store')->name('category.store');
-
-//Route getCategoryList //  Step: 6
 Route::get('/CategoryList', 'CategoryController@index')->name('category.index');
-
-//Route getCategoryEdit
 Route::get('/categoryById/{id}', 'CategoryController@edit')->name('category.edit');
-
-//Route categoryUpdate
 Route::post('/categoryUpdate/{id}', 'CategoryController@update')->name('category.update');
-
-//Route categoryUpdate
 Route::get('/categoryDelete/{id}', 'CategoryController@destroy')->name('category.delete');
+Route::get('/categoryCount', 'CategoryController@categoryCount')->name('category.categoryCount');
 
 //............................Sub Category Route ........................
 
 //Route for category
 Route::post('/SubCategoryStore', 'SubCategoryController@store')->name('SubCategory.store');
-
-//Route getCategoryList //  Step: 6
 Route::get('/SubCategoryList', 'SubCategoryController@index')->name('SubCategory.index');
-
-//Route getCategoryEdit
 Route::get('/SubCategoryById/{id}', 'SubCategoryController@edit')->name('SubCategory.edit');
-
-//Route categoryUpdate
 Route::post('/SubCategoryUpdate/{id}', 'SubCategoryController@update')->name('SubCategory.update');
-
-//Route categoryUpdate
 Route::get('/SubCategoryDelete/{id}', 'SubCategoryController@destroy')->name('SubCategory.delete');
-
+Route::get('/subCategoryCount', 'SubCategoryController@subCategoryCount')->name('SubCategory.subCategoryCount');
 
 //............................Product Route ........................
 
@@ -52,6 +37,8 @@ Route::get('/getSubcategoryByCategoryId/{id}', 'ProductController@getSubcategory
 Route::get('/getProductBySubCategoryId/{id}', 'ProductController@getProductBySubCategoryId')->name('product.getProductBySubCategoryId');
 Route::get('/getProductBySearch/{value}', 'ProductController@getProductBySearch')->name('product.getProductBySearch');
 Route::get('/subcategoryWiseProduct', 'ProductController@subcategoryWiseProduct')->name('product.subcategoryWiseProduct');
+Route::get('/productCount', 'ProductController@productCount')->name('product.productCount');
+
 
 
 
@@ -128,6 +115,28 @@ Route::get('/getStoreProduct/{id}', 'StockController@index')->name('stock.index'
 Route::get('/StockEdit/{id}', 'StockController@edit')->name('stock.edit');
 Route::post('/stockUpdate/{id}', 'StockController@update')->name('stock.update');
 Route::get('/stocktDelete/{id}', 'StockController@destroy')->name('stock.delete');
+
+
+
+//............................Cash Route ........................
+Route::post('/cashStore', 'CashController@store')->name('cash.store');
+Route::get('/cashList', 'CashController@index')->name('cash.index');
+Route::get('/cashById/{id}', 'CashController@edit')->name('cash.edit');
+Route::post('/cashUpdate/{id}', 'CashController@update')->name('cash.update');
+Route::get('/cashDelete/{id}', 'CashController@destroy')->name('cash.delete');
+Route::get('/totalCash', 'CashController@totalCash')->name('cash.totalCash');
+
+
+//............................Expense Route ........................
+Route::post('/expenseStore', 'ExpenseController@store')->name('expense.store');
+Route::get('/expenseList', 'ExpenseController@index')->name('expense.index');
+Route::get('/expenseById/{id}', 'ExpenseController@edit')->name('expense.edit');
+Route::post('/expenseUpdate/{id}', 'ExpenseController@update')->name('expense.update');
+Route::get('/expenseDelete/{id}', 'ExpenseController@destroy')->name('expense.delete');
+
+
+
+
 
 
 

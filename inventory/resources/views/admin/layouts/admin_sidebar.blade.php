@@ -137,33 +137,20 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-            <li class="nav-item has-treeview ">
-              <a href="#" class="nav-link active">
+            
+            <li class="nav-item">
+              <router-link to="/" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard
-                  <i class="right fas fa-angle-left"></i>
                 </p>
-              </a>
-              <ul class="nav nav-treeview">
-              
-                <li class="nav-item">
-                  <router-link to="/" class="nav-link ">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard </p>
-                  </router-link>
-                </li>
-              
-               
-                
-              </ul>
+              </router-link>
             </li>
 
             <li class="nav-item">
               <router-link to="/pos" class="nav-link">
-                <i class="nav-icon fas fa-tag"></i>
+                <!-- <i class="nav-icon fas fa-tag"></i> -->
+                <i class="nav-icon fas fa-shopping-cart"></i>
                 <p>
                   POS
                 </p>
@@ -176,7 +163,6 @@
                 <p>
                   Category Manage
                   <i class="fas fa-angle-left right"></i>
-                  <span class="badge badge-info right">6</span>
                 </p>
               </a>
               <ul class="nav nav-treeview">
@@ -195,11 +181,10 @@
 
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-list"></i>
+                <i class="nav-icon fas fa-tag"></i>
                 <p>
                  Sub Category Manage
                   <i class="fas fa-angle-left right"></i>
-                  <span class="badge badge-info right">6</span>
                 </p>
               </a>
               <ul class="nav nav-treeview">
@@ -216,11 +201,10 @@
 
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-list"></i>
+                <i class="nav-icon fas fa-shopping-bag"></i>
                 <p>
                   Product Manage
                   <i class="fas fa-angle-left right"></i>
-                  <span class="badge badge-info right">6</span>
                 </p>
               </a>
               <ul class="nav nav-treeview">
@@ -234,13 +218,65 @@
              
               </ul>
             </li>
+            
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-list"></i>
+                <i class="nav-icon  fas fa-dollar-sign"></i>
+                <p>
+                  Cash Manage
+                  <i class="fas fa-angle-left right"></i>
+                  
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+         
+                <li class="nav-item">
+                  <router-link to="/cashAdd" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Cash Add</p>
+                  </router-link>
+                </li>   
+                 <li class="nav-item">
+                  <router-link to="/cashList" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Cash List</p>
+                  </router-link>
+                </li>             
+             
+              </ul>
+            </li>
+             <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-money-check-alt"></i>
+                <p>
+                  Expense Manage
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+         
+                <li class="nav-item">
+                  <router-link to="/expenseAdd" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Expense Add</p>
+                  </router-link>
+                </li>   
+                 <li class="nav-item">
+                  <router-link to="/expenseList" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Expense List</p>
+                  </router-link>
+                </li>             
+             
+              </ul>
+            </li>
+           
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-store"></i>
                 <p>
                   Stock Manage
                   <i class="fas fa-angle-left right"></i>
-                  <span class="badge badge-info right">6</span>
                 </p>
               </a>
               <ul class="nav nav-treeview">
@@ -263,11 +299,10 @@
             
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-list"></i>
+                <i class="nav-icon fas fa-users"></i>
                 <p>
                   Customer Manage
                   <i class="fas fa-angle-left right"></i>
-                  <span class="badge badge-info right">6</span>
                 </p>
               </a>
               <ul class="nav nav-treeview">
@@ -283,11 +318,10 @@
             </li>
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-list"></i>
+                <i class="nav-icon fas fa-cart-plus"></i>
                 <p>
                   Order Manage
                   <i class="fas fa-angle-left right"></i>
-                  <span class="badge badge-info right">6</span>
                 </p>
               </a>
               <ul class="nav nav-treeview">
@@ -304,11 +338,10 @@
 
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-list"></i>
+                <i class="nav-icon fas fa-user-alt"></i>
                 <p>
                     Employee Manage
                   <i class="fas fa-angle-left right"></i>
-                  <span class="badge badge-info right">6</span>
                 </p>
               </a>
               <ul class="nav nav-treeview">
@@ -325,11 +358,10 @@
 
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-list"></i>
+                <i class="nav-icon fa fa-credit-card"></i>
                 <p>
                     Salary Manage
                   <i class="fas fa-angle-left right"></i>
-                  <span class="badge badge-info right">6</span>
                 </p>
               </a>
               <ul class="nav nav-treeview">
@@ -346,11 +378,10 @@
 
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-list"></i>
+                <i class="nav-icon fas fa-user-check"></i>
                 <p>
                     Attendence Manage
                   <i class="fas fa-angle-left right"></i>
-                  <span class="badge badge-info right">6</span>
                 </p>
               </a>
               <ul class="nav nav-treeview">

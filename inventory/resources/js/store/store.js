@@ -10,6 +10,9 @@ export default {
         order: [],
         employee: [],
         salary: [],
+        cash: [],
+        totalCash: [],
+        expenseList:[]
 
 
     },
@@ -34,8 +37,15 @@ export default {
         employeeListFromStore(state) {
             return state.employee
         },
-        salaryListFromStore(state) {
-            return state.salary
+        
+        cashListFromStore(state) {
+            return state.cash
+        },
+        totalCashFromStore(state) {
+            return state.totalCash
+        },
+        expenseListFromStore(state) {
+            return state.expenseList
         },
 
 
@@ -84,12 +94,26 @@ export default {
                 context.commit('AllSalaryList', response.data.salaryList)
             })
         },
-       
+        CashListSaveInStore(context) {
+            Axios.get('/cashList').then((response) => {
+                context.commit('AllCashList', response.data.cashList)
+            })
+        },
+        TotalCashSaveInStore(context) {
+            Axios.get('/totalCash').then((response) => {
+                context.commit('TotalCash', response.data.total_cash)
+            })
+        },
         
+        ExpenseListSaveInStore(context) {
+            Axios.get('/expenseList').then((response) => {
+                context.commit('ExpenseList', response.data.expenseList)
+            })
+        },
 
-
-
-
+        
+        
+    
     },
 
     //  Step: 8
@@ -115,6 +139,19 @@ export default {
         AllSalaryList(state, responseData) {
             return state.salary = responseData
         },
+        AllCashList(state, responseData) {
+            return state.cash = responseData
+        },
+        TotalCash(state, responseData) {
+            return state.totalCash = responseData
+        },
+        ExpenseList(state, responseData) {
+            return state.expenseList = responseData
+        },
+
+        
+
+        
 
 
 

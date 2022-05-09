@@ -19,9 +19,9 @@ class CategoryController extends Controller
     {
         $AllcategoryList = Category::all();
         return response()->json(['categoryList'=>$AllcategoryList],200);
+   
     }
-  
-
+   
     /**
      * Show the form for creating a new resource.
      *
@@ -133,14 +133,22 @@ class CategoryController extends Controller
        return ['status'=>'success'];
 
     }
+
+    public function categoryCount()
+     {
+        $categoryCount =  DB::table('categories')
+            ->where('deleted_at', NULL)
+            ->count();
+        return response()->json(['categoryCount'=>$categoryCount],200);
+    }
+
+
       public function formValidation($request){
         $this->validate($request,
         [
             'category_name' => 'required',
             'category_description' => 'required',
             'category_image' => 'required',
-
-
         ]);
     }
 }

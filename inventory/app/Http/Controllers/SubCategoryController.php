@@ -156,8 +156,18 @@ class SubCategoryController extends Controller
        return ['status'=>'success'];
 
     }
-         public function formValidation($request){
-        $this->validate($request,
+
+    public function subCategoryCount()
+     {
+        $subCategoryCount =  DB::table('sub_categories')
+            ->where('deleted_at', NULL)
+            ->count();
+        return response()->json(['subCategoryCount'=>$subCategoryCount],200);
+    }
+
+    
+    public function formValidation($request){
+          $this->validate($request,
         [
             'category_id' => 'required',
             'sub_category_name' => 'required',

@@ -48,10 +48,19 @@ import stockAdd from './components/admin/stock/stockAdd.vue';
 import stockList from './components/admin/stock/stockList.vue';
 import stockEdit from './components/admin/stock/stockEdit.vue';
 
+// ___________________________ Cash Component ________________________________
+import cashAdd from './components/admin/cash/cashAdd.vue';
+import cashList from './components/admin/cash/cashList.vue';
+import cashEdit from './components/admin/cash/cashEdit.vue';
+
+// ___________________________ Expense Component ________________________________
+import expenseAdd from './components/admin/expense/expenseAdd.vue';
+import expenseList from './components/admin/expense/expenseList.vue';
+import expenseEdit from './components/admin/expense/expenseEdit.vue';
+
 
 export const routes = [
     { path: '/', component: dashboard },
-
 
     {
         path: '/categoryList',
@@ -133,10 +142,15 @@ export const routes = [
     { path: '/StockEdit/:stockId', component: stockEdit },
 
 
+    //________________________________ Cash Route ______________
+    { path: '/cashAdd', component: cashAdd },
+    { path: '/cashList', component: cashList },
+    { path: '/cashEdit/:cashId', component: cashEdit },
 
 
-
-
-
+    //________________________________ Expense Route ______________
+    { path: '/expenseAdd', component: expenseAdd },
+    { path: '/expenseList', component: expenseList },
+    { path: '/expenseEdit/:expenseId', component: expenseEdit },
 
 ]

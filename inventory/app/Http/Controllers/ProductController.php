@@ -187,6 +187,13 @@ class ProductController extends Controller
            ->get();
         return response()->json(['subcategoryWiseProduct'=>$subcategoryWiseProduct],200);
     }
+     public function productCount()
+     {
+        $productCount =  DB::table('products')
+            ->where('deleted_at', NULL)
+            ->count();
+        return response()->json(['productCount'=>$productCount],200);
+    }
 
     
 
