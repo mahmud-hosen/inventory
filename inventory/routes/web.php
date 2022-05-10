@@ -20,6 +20,8 @@ Route::get('/categoryById/{id}', 'CategoryController@edit')->name('category.edit
 Route::post('/categoryUpdate/{id}', 'CategoryController@update')->name('category.update');
 Route::get('/categoryDelete/{id}', 'CategoryController@destroy')->name('category.delete');
 Route::get('/categoryCount', 'CategoryController@categoryCount')->name('category.categoryCount');
+Route::get('/categoryWiseSubcategory', 'CategoryController@categoryWiseSubcategory')->name('product.categoryWiseSubcategory');
+
 
 //............................Sub Category Route ........................
 
@@ -44,17 +46,9 @@ Route::get('/productCount', 'ProductController@productCount')->name('product.pro
 
 //Route for category
 Route::post('/productStore', 'ProductController@store')->name('product.store');
-
-//Route getCategoryList //  Step: 6
 Route::get('/productList', 'ProductController@index')->name('product.index');
-
-//Route getCategoryEdit
 Route::get('/productById/{id}', 'ProductController@edit')->name('product.edit');
-
-//Route categoryUpdate
 Route::post('/productUpdate/{id}', 'ProductController@update')->name('product.update');
-
-//Route categoryUpdate
 Route::get('/productDelete/{id}', 'ProductController@destroy')->name('product.delete');
 
 //............................Cart Route ........................
@@ -76,6 +70,8 @@ Route::get('/customerList', 'CustomerController@index')->name('customer.index');
 Route::get('/customerById/{id}', 'CustomerController@edit')->name('customer.edit');
 Route::post('/customerUpdate/{id}', 'CustomerController@update')->name('customer.update');
 Route::get('/customerDelete/{id}', 'CustomerController@destroy')->name('customer.delete');
+Route::get('/customerCount', 'CustomerController@customerCount')->name('customer.customerCount');
+
 
 //............................Order Route ........................
 Route::post('/confirm_order', 'OrderController@confirm_order')->name('order.confirm_order');
@@ -84,13 +80,17 @@ Route::get('/orderDetails/{id}', 'OrderController@orderDetails')->name('order.or
 Route::get('/aprove_order/{id}', 'OrderController@aprove_order')->name('order.aprove_order');
 Route::get('/pending_order/{id}', 'OrderController@pending_order')->name('order.pending_order');
 Route::get('/delete_Order/{id}', 'OrderController@delete_Order')->name('order.delete_Order');
+Route::get('/orderStatus', 'OrderController@orderStatus')->name('order.orderStatus');
 
-//............................Customer Route ........................
+
+//............................Employee Route ........................
 Route::post('/employeeStore', 'EmployeeController@store')->name('employee.store');
 Route::get('/employeeList', 'EmployeeController@index')->name('employee.index');
 Route::get('/employeeById/{id}', 'EmployeeController@edit')->name('employee.edit');
 Route::post('/employeeUpdate/{id}', 'EmployeeController@update')->name('employee.update');
 Route::get('/employeeDelete/{id}', 'EmployeeController@destroy')->name('employee.delete');
+Route::get('/employeeCount', 'EmployeeController@employeeCount')->name('employee.index');
+
 
 
 //............................Salary Route ........................
@@ -125,7 +125,7 @@ Route::get('/cashById/{id}', 'CashController@edit')->name('cash.edit');
 Route::post('/cashUpdate/{id}', 'CashController@update')->name('cash.update');
 Route::get('/cashDelete/{id}', 'CashController@destroy')->name('cash.delete');
 Route::get('/totalCash', 'CashController@totalCash')->name('cash.totalCash');
-
+Route::get('/todayCash', 'CashController@todayCash')->name('cash.todayCash');
 
 //............................Expense Route ........................
 Route::post('/expenseStore', 'ExpenseController@store')->name('expense.store');
@@ -133,6 +133,8 @@ Route::get('/expenseList', 'ExpenseController@index')->name('expense.index');
 Route::get('/expenseById/{id}', 'ExpenseController@edit')->name('expense.edit');
 Route::post('/expenseUpdate/{id}', 'ExpenseController@update')->name('expense.update');
 Route::get('/expenseDelete/{id}', 'ExpenseController@destroy')->name('expense.delete');
+Route::get('/todayExpense', 'ExpenseController@todayExpense')->name('expense.todayExpense');
+
 
 
 

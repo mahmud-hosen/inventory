@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Expense;
 use Illuminate\Http\Request;
-
+use DB;
 class ExpenseController extends Controller
 {
     /**
@@ -99,6 +99,15 @@ class ExpenseController extends Controller
          Expense::destroy($id);
          return ['status'=>'success'];
     }
+
+     public function todayExpense()
+     {         
+        $todayExpense =  DB::table('expenses')
+            ->where('expense_date', '=', date('Y-m-d'))
+            ->sum('expense_amount');
+        return response()->json(['todayExpense'=>$todayExpense],200);
+    }
+  
      public function formValidation($request){
         $this->validate($request,
         [

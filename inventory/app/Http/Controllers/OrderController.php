@@ -93,13 +93,12 @@ class OrderController extends Controller
             return ['status'=>'Order deleted'];
           }
       }
-      
-
-
-
-
   
-
-
-    
+     public function orderStatus()
+     {
+        $orderStatus =  DB::table('orders')
+            ->where('order_status', 'Pending')
+            ->count();
+        return response()->json(['orderStatus'=>$orderStatus],200);
+    }    
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Employee;
 use Illuminate\Http\Request;
 
@@ -135,6 +136,13 @@ class EmployeeController extends Controller
         Employee::destroy($id);
         return ['status'=>'success'];
     }
+     public function employeeCount()
+     {
+        $employeeCount =  DB::table('employees')->count();
+        return response()->json(['employeeCount'=>$employeeCount],200);
+     }
+
+    
     public function formValidation($request){
         $this->validate($request,
         [

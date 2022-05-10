@@ -21,6 +21,20 @@ class CategoryController extends Controller
         return response()->json(['categoryList'=>$AllcategoryList],200);
    
     }
+
+
+
+    public function categoryWiseSubcategory()
+    {   // dd($value);
+         $categoryWiseSubcategory = DB::table('categories')
+           ->join('sub_categories','categories.id','=','sub_categories.category_id')
+           ->select('categories.category_name', DB::raw('COUNT(sub_categories.id) as total'))
+           ->where('sub_categories.deleted_at', NULL)
+           ->groupBy('sub_categories.category_id')
+           ->get();
+
+        return response()->json(['categoryWiseSubcategory'=>$categoryWiseSubcategory],200);
+    }
    
     /**
      * Show the form for creating a new resource.

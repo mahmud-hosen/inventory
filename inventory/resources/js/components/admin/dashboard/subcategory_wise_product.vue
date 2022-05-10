@@ -24,7 +24,6 @@ export default {
 
   mounted() {
     axios.get("/subcategoryWiseProduct").then((response) => {
-
       for (let i = 0; i < response.data.subcategoryWiseProduct.length; i++) {
         this.result[0] = response.data.subcategoryWiseProduct[i].sub_category_name;
         this.result[1] = response.data.subcategoryWiseProduct[i].total;
@@ -32,8 +31,7 @@ export default {
         this.result = [];
       }
     });
- 
- },
+  },
 };
 </script>
 

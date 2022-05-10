@@ -28,7 +28,7 @@
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box">
                 <span class="info-box-icon bg-info elevation-1"
-                  ><i class="fas fa-cog"></i></span>
+                  ><i class="fas fa-list"></i></span>
 
                 <div class="info-box-content">
                   <span class="info-box-text">Category </span>
@@ -42,8 +42,8 @@
             <!-- /.col -->
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
-                <span class="info-box-icon bg-danger elevation-1"
-                  ><i class="fas fa-thumbs-up"></i
+                <span class="info-box-icon bg-primary elevation-1"
+                  ><i class="fas fa-tag"></i
                 ></span>
 
                 <div class="info-box-content">
@@ -77,12 +77,12 @@
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
                 <span class="info-box-icon bg-warning elevation-1"
-                  ><i class="fas fa-users"></i
+                  ><i class="fas fa-user-alt"></i
                 ></span>
 
                 <div class="info-box-content">
-                  <span class="info-box-text">New Members</span>
-                  <span class="info-box-number">2,000</span>
+                  <span class="info-box-text">Employee</span>
+                  <span class="info-box-number">{{employeeCount}}</span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
@@ -95,14 +95,12 @@
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box">
                 <span class="info-box-icon bg-info elevation-1"
-                  ><i class="fas fa-cog"></i
+                  ><i class="fas fa-dollar-sign"></i
                 ></span>
 
                 <div class="info-box-content">
-                  <span class="info-box-text">CPU Traffic</span>
-                  <span class="info-box-number">
-                    10
-                    <small>%</small>
+                  <span class="info-box-text">Today Cash</span>
+                  <span class="info-box-number">{{todayCash}}
                   </span>
                 </div>
                 <!-- /.info-box-content -->
@@ -112,13 +110,13 @@
             <!-- /.col -->
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
-                <span class="info-box-icon bg-danger elevation-1"
-                  ><i class="fas fa-thumbs-up"></i
+                <span class="info-box-icon bg-primary elevation-1"
+                  ><i class="fas fa-money-check-alt"></i
                 ></span>
 
                 <div class="info-box-content">
-                  <span class="info-box-text">Likes</span>
-                  <span class="info-box-number">41,410</span>
+                  <span class="info-box-text">Today Expense</span>
+                  <span class="info-box-number">{{todayExpense}}</span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
@@ -132,12 +130,12 @@
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
                 <span class="info-box-icon bg-success elevation-1"
-                  ><i class="fas fa-shopping-cart"></i
+                  ><i class="fas fa-cart-plus"></i
                 ></span>
 
                 <div class="info-box-content">
-                  <span class="info-box-text">Sales</span>
-                  <span class="info-box-number">760</span>
+                  <span class="info-box-text">Pending Order</span>
+                  <span class="info-box-number">{{orderStatus}}</span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
@@ -151,8 +149,8 @@
                 ></span>
 
                 <div class="info-box-content">
-                  <span class="info-box-text">New Members</span>
-                  <span class="info-box-number">2,000</span>
+                  <span class="info-box-text">Customer </span>
+                  <span class="info-box-number">{{customerCount}}</span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
@@ -212,7 +210,8 @@
                   <div class="row">
                     <div class="col-md-12">
                       <!-- Sales Chart Canvas -->
-                      <subcategory-product></subcategory-product>
+                      <category-subCategory></category-subCategory>
+
 
                       <!-- /.chart-responsive -->
                     </div>
@@ -275,7 +274,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <!-- Sales Chart Canvas -->
-                      <!-- <subcategory-content></subcategory-content> -->
+                      <subcategory-product></subcategory-product>
 
                       <!-- /.chart-responsive -->
                     </div>
@@ -315,12 +314,33 @@ export default {
     axios.get("/subCategoryCount")
       .then((response) => {
         this.subCategoryCount = response.data.subCategoryCount;
-     
       });
-     axios.get("/productCount")
+    
+    axios.get("/productCount")
       .then((response) => {
         this.productCount = response.data.productCount;
-     
+      });
+
+    axios.get("/employeeCount")
+      .then((response) => {
+        this.employeeCount = response.data.employeeCount;
+      });
+    axios.get("/todayCash")
+      .then((response) => {
+        this.todayCash = response.data.todayCash;
+      });
+     axios.get("/todayExpense")
+      .then((response) => {
+        this.todayExpense = response.data.todayExpense;
+      });
+
+    axios.get("/orderStatus")
+      .then((response) => {
+        this.orderStatus = response.data.orderStatus;
+      });
+    axios.get("/customerCount")
+      .then((response) => {
+        this.customerCount = response.data.customerCount;
       });
   },
 
@@ -329,7 +349,11 @@ export default {
       categoryCount: "",
       subCategoryCount: "",
       productCount: "",
-
+      employeeCount: "",
+      todayExpense: "",
+      todayCash: "",
+      orderStatus: "",
+      customerCount: "",
 
       errors: {},
     };

@@ -98,6 +98,16 @@ class CashController extends Controller
          Cash::destroy($id);
          return ['status'=>'success'];
     }
+
+    public function todayCash()
+     {         
+        $todayCash =  DB::table('cashes')
+            ->where('cash_date', '=', date('Y-m-d'))
+            ->sum('cash_amount');
+        return response()->json(['todayCash'=>$todayCash],200);
+    }
+
+
      public function formValidation($request){
         $this->validate($request,
         [

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Customer;
 use Illuminate\Http\Request;
 
@@ -137,6 +138,12 @@ class CustomerController extends Controller
         }
         Customer::destroy($id);
         return ['status'=>'success'];
+    }
+
+     public function customerCount()
+     {
+        $customerCount =  DB::table('customers')->count();
+        return response()->json(['customerCount'=>$customerCount],200);
     }
      public function formValidation($request){
         $this->validate($request,
