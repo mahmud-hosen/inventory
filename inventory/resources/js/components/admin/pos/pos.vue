@@ -8,7 +8,7 @@
             <div class="col-md-12 mt-2">
               <div class="card bg-info text-center">
                 <h2 class="card-title mt-1 mb-1">POS (Point of Sale)</h2>
-                <h2 class="card-title">Date: 23-03-1999</h2>
+                <!-- <h2 class="card-title">Date:  echo "Today is " . date("Y-m-d");?> </h2> -->
               </div>
               <!-- /.card -->
             </div>

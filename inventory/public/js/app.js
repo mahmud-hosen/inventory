@@ -57831,8 +57831,6 @@ var staticRenderFns = [
           _c("h2", { staticClass: "card-title mt-1 mb-1" }, [
             _vm._v("POS (Point of Sale)"),
           ]),
-          _vm._v(" "),
-          _c("h2", { staticClass: "card-title" }, [_vm._v("Date: 23-03-1999")]),
         ]),
       ]),
     ])
